@@ -1,16 +1,16 @@
 <template>
   <nav class="navbar">
    <section class="navbar-1">
-        <menu-bar />
-        <div class="logo">
+        <router-link to="/"><menu-bar /></router-link>
+        <router-link to="/" class="logo">
             <img src="../assets/logo.png" width="48px" alt="logo">
-        </div>
+        </router-link>
    </section>
    <section class="ayoub">
     <h2>Ayoub Sørensen, Fodbold Akademi</h2>
    </section>
    <section class="navbar-2">
-    <span class="nav-item">Information</span>
+    <router-link to="/info" class="nav-item">Information</router-link>
     <button>SignIn</button>
    </section>
   </nav>

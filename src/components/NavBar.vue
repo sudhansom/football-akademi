@@ -7,7 +7,7 @@
         </div>
    </section>
    <section class="ayoub">
-    <h2>Ayoub Sørenson, Fodbold Akademi</h2>
+    <h2>Ayoub Sørensen, Fodbold Akademi</h2>
    </section>
    <section class="navbar-2">
     <span class="nav-item">Information</span>

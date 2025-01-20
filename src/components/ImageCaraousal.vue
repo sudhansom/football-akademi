@@ -1,15 +1,21 @@
 <template>
-  <div class="carousel">
-    <div class="image">
-        <img :src="images[count]" alt="">
+  <section>
+    <div class="carousel">
+        <div class="image">
+            <img :src="images[count]" alt="">
+        </div>
+        <span  class="prev" @click="prevSlide">‹</span>
+        <span  class="next" @click="nextSlide">›</span>
     </div>
-    <span v-if="count>1" class="prev" @click="prevSlide">‹</span>
-    <span v-if="count < images.length-1" class="next" @click="nextSlide">›</span>
-  </div>
+    <ImageIndication :len="images.length - 1" v-model="count" />
+  </section>
+
+
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import ImageIndication from './ImageIndication.vue';
 let count = ref(0);
 const images = ref([
     "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
@@ -20,21 +26,29 @@ const images = ref([
 function prevSlide(){
     if(count.value > 0){
         count.value -= 1;
+    }else {
+        count.value = images.value.length - 1
     }
 }
 function nextSlide(){
     if(count.value < images.value.length - 1){
         count.value += 1;
+    }else {
+        count.value = 0;
     }
 }
 </script>
 
 <style scoped>
+section {
+    max-width: 500px;
+    margin: auto;
+}
 .carousel {
     position: relative;
-    max-width: 600px;
-    max-height: 400px;
-    margin: 24px auto;
+    max-width: 500px;
+    max-height: 300px;
+    margin: 24px auto 12px;
     overflow: hidden;
     border-radius: 12px;
     z-index: 1;
@@ -42,8 +56,8 @@ function nextSlide(){
 .image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
+    object-fit: contain;
+    object-position: cover;
     display: block;
 }
 .prev, .next {

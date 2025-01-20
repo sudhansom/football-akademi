@@ -6,6 +6,9 @@
             <img src="../assets/logo.png" width="48px" alt="logo">
         </div>
    </section>
+   <section class="ayoub">
+    <h2>Ayoub Sørenson, Fodbold Akademi</h2>
+   </section>
    <section class="navbar-2">
     <span class="nav-item">Information</span>
     <button>SignIn</button>
@@ -23,7 +26,7 @@ import MenuBar from "./MenuBar.vue"
     padding: 6px 12px;
     display: flex;
     justify-content: space-between;
-    align-content: center;
+    align-items: center;
 }
 .navbar-1 {
     display: flex;
@@ -45,5 +48,8 @@ img {
     color: rgb(112, 109, 109);
     cursor: pointer;
 }
-
+h2 {
+    margin:0;
+    font-size: 18px;
+}
 </style>

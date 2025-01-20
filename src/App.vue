@@ -1,8 +1,9 @@
 <script setup>
+import NavBar from "../src/components/NavBar.vue"
 </script>
 
 <template>
- <h1>Football</h1>
+ <NavBar />
 </template>
 
 <style scoped>

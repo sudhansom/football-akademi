@@ -1,6 +1,7 @@
 <script setup>
 import NavBar from "../src/components/NavBar.vue"
 import DisplayInfoVue from "./components/DisplayInfo.vue"
+import TheFooter from "./components/TheFooter.vue"
 
 
 </script>
@@ -8,6 +9,7 @@ import DisplayInfoVue from "./components/DisplayInfo.vue"
 <template>
  <nav-bar />
  <router-view></router-view>
+ <the-footer />
  
 </template>
 

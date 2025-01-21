@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-page">
     <display-info />
     <ImageCaraousal />
         <!-- <div class="main-body">
@@ -15,5 +15,7 @@ import DisplayInfo from "../components/DisplayInfo.vue"
 </script>
 
 <style scoped>
-
+.home-page {
+    min-height: 88dvh;
+}
 </style>

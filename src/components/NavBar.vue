@@ -11,7 +11,9 @@
    </section>
    <section class="navbar-2">
     <router-link to="/info" class="nav-item">Information</router-link>
-    <button>SignIn</button>
+    <router-link to="/login">
+        <button>SignIn</button>
+    </router-link>
    </section>
   </nav>
 </template>

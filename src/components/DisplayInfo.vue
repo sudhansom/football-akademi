@@ -1,11 +1,13 @@
 <template>
 <div class="information">
-  <h3>Coming program : 21-January-25, Tuesday </h3>
+  <h3>{{ message }} </h3>
 </div>
 </template>
 
 <script setup>
-
+defineProps({
+    message: String,
+})
 </script>
 
 <style scoped>

@@ -6,7 +6,7 @@
         "age": 45, 
         "email":"bal@gmail.com", 
         "password":"",
-        "type":"admin" 
+        "role":"admin" 
     },
       { 
         "id": "2", 
@@ -14,7 +14,7 @@
         "age": 42, 
         "email":"bkspoudel@gmail.com", 
         "password":"",
-        "type":"admin" 
+        "role":"admin" 
     },
       { 
         "id": "3", 
@@ -22,7 +22,7 @@
         "age": 40, 
         "email":"resham@gmail.com", 
         "password":"",
-        "type":"helper" 
+        "role":"helper" 
     },
       { 
         "id": "4", 
@@ -30,7 +30,7 @@
         "age": 39, 
         "email":"biren@gmail.com", 
         "password":"",
-        "type":"player" 
+        "role":"player" 
     }
       
     ]

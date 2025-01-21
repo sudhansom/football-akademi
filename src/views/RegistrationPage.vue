@@ -8,9 +8,17 @@
         <label >Last Name
             <input type="text" v-model="lastName">
         </label>
-        <label >Age
+       <div class="age-type">
+         <label class="age">Age
             <input type="number" v-model="age">
         </label>
+         <label class="type">Role
+            <select v-model="role">
+                <option value="helper">Helper</option>
+                <option value="player">Player</option>
+            </select>
+        </label>
+       </div>
         <label >Address
             <input type="text" v-model="address">
         </label>
@@ -41,9 +49,10 @@ const email = ref("")
 const address = ref("")
 const phone = ref(null)
 const parentName = ref("")
+const role = ref("player")
 
 function submitForm(){
-    console.log(firstName.value)
+    console.log(role.value)
 }
 
 </script>
@@ -68,7 +77,7 @@ label {
     flex-direction: column;
     font-weight: bold;
 }
-input {
+input, select {
     padding: 6px;
     border: 1px solid gray;
     border-radius: 6px;
@@ -82,5 +91,16 @@ h3 {
     justify-content: start;
     align-items: center;
     gap: 12px;
+}
+.age-type {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+.age {
+    max-width: 100px;
+}
+.type {
+    flex-grow: 1;
 }
 </style>

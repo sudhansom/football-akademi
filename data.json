@@ -1,0 +1,38 @@
+{
+    "users": [
+      { 
+        "id": "1", 
+        "name": "Bal", 
+        "age": 45, 
+        "email":"bal@gmail.com", 
+        "password":"",
+        "type":"admin" 
+    },
+      { 
+        "id": "2", 
+        "name": "Sudhan", 
+        "age": 42, 
+        "email":"bkspoudel@gmail.com", 
+        "password":"",
+        "type":"admin" 
+    },
+      { 
+        "id": "3", 
+        "name": "Resham", 
+        "age": 40, 
+        "email":"resham@gmail.com", 
+        "password":"",
+        "type":"helper" 
+    },
+      { 
+        "id": "4", 
+        "name": "Birendra", 
+        "age": 39, 
+        "email":"biren@gmail.com", 
+        "password":"",
+        "type":"player" 
+    }
+      
+    ]
+    
+  }

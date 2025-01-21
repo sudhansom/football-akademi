@@ -25,8 +25,21 @@ import { ref } from "vue"
 const email = ref("")
 const password = ref("")
 
+const data = ref([])
+
 function submitForm(){
-    console.log(email.value)
+    fetch(`http://localhost:3002/users`)
+    .then(response => response.json())
+    .then(data => {
+        data = data;
+        let res = data.find(a => a.email === email.value && a.password === password.value)
+        console.log(res)
+        if(res){
+            console.log('Logged in')
+        }else {
+            alert('Wrong credentials')
+        }
+    })
 }
 
 </script>

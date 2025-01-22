@@ -32,7 +32,7 @@
     </form>
     <div class="login">
         <p>Already a user?</p>
-        <router-link to="/login">
+        <router-link to="/login" class="link">
             Login
         </router-link>
     </div>
@@ -102,5 +102,8 @@ h3 {
 }
 .type {
     flex-grow: 1;
+}
+.link {
+    color: #646cff;
 }
 </style>

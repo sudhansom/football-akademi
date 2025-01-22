@@ -12,7 +12,7 @@
     </form>
     <div class="sign-up">
         <p>Need to Create new?</p>
-        <router-link to="/register">
+        <router-link class="link" to="/register">
             Sign Up
         </router-link>
     </div>
@@ -78,5 +78,8 @@ h3 {
     justify-content: start;
     align-items: center;
     gap: 12px;
+}
+.link {
+    color: #646cff;
 }
 </style>

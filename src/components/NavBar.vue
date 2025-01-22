@@ -10,7 +10,7 @@
     <h2>Ayoub Sørensen, Fodbold Akademi</h2>
    </section>
    <section class="navbar-2">
-    <router-link to="/info" class="nav-item">Information</router-link>
+    <router-link to="/info" class="each-tab">Information</router-link>
     <router-link to="/login">
         <button>SignIn</button>
     </router-link>

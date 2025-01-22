@@ -21,14 +21,8 @@
 }
 .links {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     gap: 12px;
     margin: 24px auto;
-}
-.each-tab {
-    border-radius: 6px;
-    padding: 6px;
-    background: rgb(230, 228, 228);
-    height: 24px;
 }
 </style>

@@ -4,25 +4,44 @@ import HomePage from "../views/HomePage.vue"
 import InformationPage from "../views/InformationPage.vue"
 import LoginPage from "../views/LoginPage.vue"
 import RegistrationPage from "../views/RegistrationPage.vue"
+import AllPlayers from "../views/AllPlayers.vue"
+import GeneralInfo from "../views/GeneralInfo.vue"
+import PlayersDetail from "../views/PlayersDetail.vue"
+
+const routes = [
+    {
+        path: '/',
+        component: HomePage
+    },
+    {
+        path: '/info',
+        component: InformationPage,
+        children: [
+            {
+                path: '',
+                component: GeneralInfo
+            },
+            {
+                path: 'all-players',
+                component: AllPlayers
+            },
+            {
+                path: 'detail',
+                component: PlayersDetail
+            },
+        ]
+    },
+    {
+        path: '/login',
+        component: LoginPage
+    },
+    {
+        path: '/register',
+        component: RegistrationPage
+    }
+]
 
 export const router = createRouter({
     history: createWebHistory(),
-    routes:[
-        {
-            path: '/',
-            component: HomePage
-        },
-        {
-            path: '/info',
-            component: InformationPage
-        },
-        {
-            path: '/login',
-            component: LoginPage
-        },
-        {
-            path: '/register',
-            component: RegistrationPage
-        }
-    ]
+    routes: routes
 })

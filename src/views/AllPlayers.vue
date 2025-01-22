@@ -22,14 +22,5 @@
 </script>
 
 <style scoped>
-    table {
-        width: 100%;
-    }
-    tr, td, table, th {
-        border: 1px solid gray;
-        border-collapse: collapse;
-    }
-    td {
-        padding: 3px 6px;
-    }
+   
 </style>

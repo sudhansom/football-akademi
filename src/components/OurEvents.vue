@@ -20,7 +20,7 @@
                     </select>
                     <input type="text" v-model="time" class="bg-white py-1 px-2 text-center rounded-lg">
                 </div>
-                <span @click="addNewEvent" class="block cursor-pointer each-tab text-center mt-2"> {{addNew?'Save':'Add new schedule'}}</span>
+                <span @click="addNewEvent" class="block font-bold cursor-pointer text-center mt-2 shadow-sm bg-gray-200 hover:bg-gray-300 p-2 rounded-lg"> {{addNew?'Save':'Add new schedule'}}</span>
             </div>
             <div v-else class="flex justify-center items-center">
                 <loading-spinner />

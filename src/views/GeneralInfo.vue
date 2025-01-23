@@ -1,7 +1,7 @@
 <template>
   <h2>General Information</h2>
  <our-events :events="events" />
-  <hr>
+  <hr class="m-3">
   <div class="prices">
     <h3>Prices</h3>
     <table>

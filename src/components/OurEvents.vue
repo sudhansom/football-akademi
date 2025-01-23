@@ -28,10 +28,19 @@
         </div>
         <div v-if="editModal" class="absolute bg-gray-100  p-10 bottom-0 left-0 top-0 right-0">
             <div class="flex flex-col  bg-gray-200 shadow-md rounded-lg  p-10 absolute bottom-8 left-8 top-8 right-8">
-                <div>
-                    <p>edit modal</p>
+                <div  class="flex justify-center border-1 border-gray-300 rounded-lg p-2 gap-6">
+                    <select v-model="day"  class="border-1 rounded-lg border-gray-300">
+                        <option value="Sunday">Sunday</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                    </select>
+                    <input type="text" v-model="time" class="bg-white py-1 px-2 text-center rounded-lg">
                 </div>
-                <div class="flex justify-end gap-1">
+                <div class="flex justify-end gap-1 mt-5">
                     <button @click="editModal=!editModal">Save</button>
                     <button @click="editModal=!editModal">Cancel</button>
                 </div>

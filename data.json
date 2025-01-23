@@ -33,6 +33,24 @@
         "role":"player" 
     }
       
+    ],
+    "events": [
+        {
+            "day": "Tuesday",
+            "time": "15:00 - 17:00"
+        },
+        {
+            "day": "Wednesday",
+            "time": "15:00 - 17:00"
+        },
+        {
+            "day": "Friday",
+            "time": "15:00 - 17:00"
+        },
+        {
+            "day": "Sunday",
+            "time": "17:00 - 19:00"
+        }
     ]
     
   }

@@ -2,15 +2,15 @@
   <h2>General Information</h2>
   <div class="programs">
     <h3>Our Programs</h3>
-    <div class="schedule">
-        <span>Tuesday: 15:00 - 17:00</span>
-        <span>Wednesday: 15:00 - 17:00</span>
-        <span>Thursday: 15:00 - 17:00</span>
-        <span>Sunday: 17:00 - 19:00</span>
+    <div>
+        <div v-if="events?.length" class="schedule">
+        <span v-for="event in events" :key="event">{{event.day}} - {{event.time}}</span>
+        </div>
+        <loading-spinner v-else />
     </div>
   </div>
   <hr>
-  <div class="programs">
+  <div class="prices">
     <h3>Prices</h3>
     <table>
         <thead>
@@ -40,7 +40,19 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import LoadingSpinner from '../components/LoadingSpinner.vue'
+import LoadingSpinnerVue from '../components/LoadingSpinner.vue'
 
+let events = ref([])
+
+onMounted(()=>{
+    fetch('http://localhost:3002/events')
+    .then(response => response.json())
+    .then(data => {
+        events.value = data
+    })
+})
 </script>
 
 <style scoped>

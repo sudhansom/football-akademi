@@ -1,10 +1,10 @@
 <template>
-  <h2>General Information</h2>
+  <h2 class="font-bold text-2xl text-center">General Information</h2>
  <our-events :events="events" />
-  <hr class="m-3">
-  <div class="prices">
-    <h3>Prices</h3>
-    <table>
+  <hr class="m-3 text-gray-200">
+  <div class="bg-stone-100 rounded-lg p-3 text-center">
+    <h3 class="font-bold text-xl">Prices</h3>
+    <table class="mb-6">
         <thead>
             <tr>
                 <th>Times / week</th>
@@ -48,16 +48,4 @@ onMounted(()=>{
 </script>
 
 <style scoped>
-.programs {
-    background: rgb(234, 232, 232);
-    border-radius: 12px;
-    text-align: center;
-    padding: 12px;
-}
-h3 {
-    margin: 0 12px;
-}
-h2 {
-    text-align: center;
-}
 </style>

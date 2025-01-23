@@ -1,11 +1,11 @@
 <template>
   <div class="person">
-    <div class="personal-info card">
+    <div class="flex justify-between card">
     <div >
-        <h2>Rhythm Som Poudel</h2>
+        <h2 class="font-bold text-2xl mb-3">Rhythm Som Poudel</h2>
         <p><b>Started on: 15-11-2024</b></p>
     </div>
-    <div class="image">
+    <div class="border-gray-300 h-32 w-32">
         <img src="../assets/hrithm.png" alt="">
     </div>
   </div>
@@ -14,7 +14,7 @@
   </div>
   <div class="payment card">
     <table>
-        <h3>Payments:</h3>
+        <h3 class="text-xl font-bold">Payments:</h3>
         <thead>
             <tr>
                 <th>Jan</th>
@@ -48,18 +48,18 @@
     </table>
   </div>
   <div class="about card">
-    <h3>Skills:</h3>
+    <h3 class="text-xl font-bold">Skills:</h3>
     <ol>
-        <li>good running (fast )</li>
-        <li>very interested and motivated</li>
-        <li>he is not good at dribbling</li>
-        <li>not good shoot</li>
-        <li>slow with ball</li>
-        <li>week left leg</li>
+        <li>1. good running (fast )</li>
+        <li>2. very interested and motivated</li>
+        <li>3. he is not good at dribbling</li>
+        <li>4. not good shoot</li>
+        <li>5. slow with ball</li>
+        <li>6. week left leg</li>
     </ol>
   </div>
     <div class="s-training card">
-    <h3>Specific Training</h3>
+    <h3 class="text-xl font-bold">Specific Training</h3>
     <p>Not taken yet.</p>
     </div>
   </div>
@@ -70,10 +70,6 @@
 </script>
 
 <style scoped>
-.personal-info {
-    display: flex;
-    justify-content: space-between;
-}
 .image {
     padding: 2px;
     border: 1px solid gray;
@@ -89,9 +85,7 @@ img {
     object-position: center;
     border-radius: 6px;
 }
-h3 {
-    margin: 0;
-}
+
 .person {
     border: 1px solid gray;
     padding: 12px;
@@ -106,7 +100,7 @@ li {
     margin-left: 24px;
 }
 .card {
-    background: rgb(236, 235, 235);
+    background: rgb(235, 235, 235);
     padding: 12px;
     margin: 12px 0;
     border-radius: 12px;

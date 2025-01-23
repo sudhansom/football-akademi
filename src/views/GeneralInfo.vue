@@ -1,14 +1,6 @@
 <template>
   <h2>General Information</h2>
-  <div class="programs">
-    <h3>Our Programs</h3>
-    <div>
-        <div v-if="events?.length" class="schedule">
-        <span v-for="event in events" :key="event">{{event.day}} - {{event.time}}</span>
-        </div>
-        <loading-spinner v-else />
-    </div>
-  </div>
+ <our-events :events="events" />
   <hr>
   <div class="prices">
     <h3>Prices</h3>
@@ -42,7 +34,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
-import LoadingSpinnerVue from '../components/LoadingSpinner.vue'
+import OurEvents from "../components/OurEvents.vue"
 
 let events = ref([])
 
@@ -61,10 +53,6 @@ onMounted(()=>{
     border-radius: 12px;
     text-align: center;
     padding: 12px;
-}
-.schedule {
-    display: flex;
-    flex-direction: column;
 }
 h3 {
     margin: 0 12px;

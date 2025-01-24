@@ -1,4 +1,13 @@
 <template>
+    <div class="flex justify-between border-1 border-gray-200 rounded-lg mb-2 p-1">
+        <input class="border-1 border-gray-200 rounded-lg py-1 px-2" type="text" placeholder="Search by Name">
+        <select class="border-1 border-gray-200 rounded-lg py-1 px-2 w-24" >
+            <option value="">Type</option>
+            <option value="">players</option>
+            <option value="">helpers</option>
+        </select>
+        <input class="border-1 border-gray-200 rounded-lg py-1 px-2 w-24" type="number" placeholder="Age">
+    </div>
     <table>
         <thead>
             <tr>

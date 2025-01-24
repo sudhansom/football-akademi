@@ -5,7 +5,7 @@
             <div v-if="events?.length" class="flex flex-col">
                 <span class="hover:bg-gray-300 p-1 flex justify-center" v-for="event in events" :key="event">{{event.day}} - {{event.time}}
                 <span>
-                    <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-10">delete</span> <span @click="toggleEdit($event, id)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6">edit</span>
+                    <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-10">delete</span> <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6">edit</span>
                 </span>
                 </span>
                 <div v-if="addNew"  class="flex justify-center border-1 border-gray-300 rounded-lg p-2 gap-6">
@@ -29,7 +29,7 @@
         <div v-if="editModal" class="absolute bg-gray-100  p-10 bottom-0 left-0 top-0 right-0">
             <div class="flex flex-col  bg-gray-200 shadow-md rounded-lg  p-10 absolute bottom-8 left-8 top-8 right-8">
                 <div  class="flex justify-center border-1 border-gray-300 rounded-lg p-2 gap-6">
-                    <select v-model="day"  class="border-1 rounded-lg border-gray-300">
+                    <select v-model="newday"  class="border-1 rounded-lg border-gray-300">
                         <option value="Sunday">Sunday</option>
                         <option value="Monday">Monday</option>
                         <option value="Tuesday">Tuesday</option>
@@ -55,11 +55,13 @@ import LoadingSpinner from '../components/LoadingSpinner.vue'
 let editModal = ref(false)
 let addNew = ref(false)
 let day = ref("Sunday")
+let newday = ref("")
 let time = ref("15:00 - 17:00")
 defineProps({
     events: Array
 })
-function toggleEdit(event, id){
+function toggleEdit(event, id, d){
+    newday.value = d
     console.log(id);
     editModal.value = !editModal.value
 }

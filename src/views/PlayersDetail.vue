@@ -32,8 +32,8 @@
         </thead>
         <tbody>
             <tr>
-                <th>paid</th>
-                <th></th>
+                <th><i class="fa-solid fa-check text-green-500 hover:text-green-300 cursor-pointer"></i></th>
+                <th><i class="fa-solid fa-xmark text-red-500 hover:text-red-300 cursor-pointer"></i></th>
                 <th></th>
                 <th></th>
                 <th></th>

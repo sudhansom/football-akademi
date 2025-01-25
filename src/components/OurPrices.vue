@@ -1,7 +1,7 @@
 <template>
   <div class="bg-stone-100 rounded-lg p-3 text-center">
     <h3 class="font-bold text-xl">Prices</h3>
-    <table class="">
+    <table v-if="prices.length" class="">
         <thead>
             <tr>
                 <th>Times / week</th>
@@ -38,6 +38,9 @@
             </tr>
         </tbody>
     </table>
+    <div v-else>
+        <loading-spinner></loading-spinner>
+    </div>
     <div v-if="!editId" class="flex justify-end">
         <span title="Add a new price" @click="add=true" class="cursor-pointer" v-if="!add"><i class="fa-solid fa-plus text-green-800 hover:text-green-500"></i></span>
         <span title="Save the changes" @click="add=false" class="cursor-pointer" v-else><i class="fa-solid fa-floppy-disk text-green-800 hover:text-green-500"></i></span>
@@ -49,6 +52,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue"
+import LoadingSpinner from "./LoadingSpinner.vue"
 
 const prices = ref([])
 
@@ -62,6 +66,7 @@ function addPrice(){
     add.value = !add.value
 }
 function editPrice(id){
+    add.value = !add.value
     editId.value = id
     console.log(id)
 }

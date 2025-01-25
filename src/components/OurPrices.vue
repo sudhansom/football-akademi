@@ -20,7 +20,7 @@
                     <span v-else>{{ p.price }} dkk</span>
                 </td>
                 <td>
-                    <div v-if="!editId">
+                    <div v-if="editId!=p.id">
                         <span class="cursor-pointer">delete </span>|<span @click="editPrice(p.id)" class="cursor-pointer"> edit</span>
                     </div>
                     <div v-else>

@@ -2,9 +2,6 @@
   <div class="home-page">
     <display-info :message="'Coming program : 21-January-25, Tuesday'" />
     <ImageCaraousal />
-        <!-- <div class="main-body">
-    <loading-spinner />
-    </div> -->
   </div>
 </template>
 

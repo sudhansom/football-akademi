@@ -1,6 +1,6 @@
 <template>
     <div class="relative bg-stone-100 rounded-lg p-3">
-        <h3 class="font-bold text-xl text-center">Our Programs</h3>
+        <h3 class="font-bold text-xl text-center mb-1">Our Programs</h3>
         <div>
             <div v-if="events?.length" class="flex flex-col">
                 <span class="hover:bg-gray-300 p-1 flex justify-center" v-for="event in events" :key="event">{{event.day}} - {{event.time}}

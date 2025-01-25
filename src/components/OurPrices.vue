@@ -6,7 +6,9 @@
             <tr>
                 <th>Times / week</th>
                 <th>Price</th>
-                <th>Action</th>
+                <th>
+                    <span class="m-1">Actions</span>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -21,10 +23,10 @@
                 </td>
                 <td>
                     <div v-if="editId!=p.id">
-                        <span class="cursor-pointer">delete </span>|<span @click="editPrice(p.id)" class="cursor-pointer"> edit</span>
+                        <span title="Delete this price tag" class="cursor-pointer mr-2"><i class="fa-solid fa-trash text-red-300 hover:text-red-500"></i> </span><span title="Edit this price" @click="editPrice(p.id)" class="cursor-pointer"> <i class="fa-solid fa-pen-to-square text-green-300 hover:text-green-500"></i></span>
                     </div>
                     <div v-else>
-                        <span @click="savePrice" class="cursor-pointer">Save </span>|<span @click="editId=false" class="cursor-pointer"> Cancel</span>
+                        <span title="Save the changes" @click="savePrice" class="cursor-pointer mr-2"><i class="fa-solid fa-floppy-disk text-green-300 hover:text-green-600"></i> </span><span title="Cancel editing" @click="editId=false" class="cursor-pointer"> <i class="fa-solid fa-xmark text-gray-400 hover:text-gray-700"></i></span>
                     </div>
                     
                 </td>
@@ -37,8 +39,8 @@
         </tbody>
     </table>
     <div v-if="!editId" class="flex justify-end">
-        <span @click="addPrice" class="cursor-pointer hover:text-green-300">{{add?'Save':'add'}}</span>
-        <span v-if="add" @click="add=false" class="cursor-pointer hover:text-green-300 ml-2">Cancel</span>
+        <span title="Add a new price" @click="add=true" class="cursor-pointer" v-if="!add"><i class="fa-solid fa-plus text-green-800 hover:text-green-500"></i></span>
+        <span title="Save the changes" @click="add=false" class="cursor-pointer" v-else><i class="fa-solid fa-floppy-disk text-green-800 hover:text-green-500"></i></span>
     </div>
     <p><b>Specific training: 5000 dkk / package</b></p>
     <p>5 trainings(1 hour each) in each package.</p>

@@ -10,20 +10,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>1800 dkk</td>
-                <td><span>delete </span>|<span> edit</span></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>2000 dkk</td>
-                <td><span>delete </span>|<span> edit</span></td>
-            </tr>
-            <tr>
-                <td>3/full</td>
-                <td>2500 dkk</td>
-                <td><span>delete </span>|<span> edit</span></td>
+            <tr v-for="p in prices" :key="p.id">
+                <td>
+                    <input v-if="editId==p.id" type="text" :placeholder="p.times" class="bg-white text-center">
+                    <span v-else>{{p.times}}</span>
+                </td>
+                <td>
+                    <input v-if="editId==p.id" type="text" :placeholder="p.price" class="bg-white text-center">
+                    <span v-else>{{ p.price }} dkk</span>
+                </td>
+                <td>
+                    <div v-if="!editId">
+                        <span class="cursor-pointer">delete </span>|<span @click="editPrice(p.id)" class="cursor-pointer"> edit</span>
+                    </div>
+                    <div v-else>
+                        <span @click="savePrice" class="cursor-pointer">Save </span>|<span @click="editId=false" class="cursor-pointer"> Cancel</span>
+                    </div>
+                    
+                </td>
             </tr>
            
             <tr v-if="add">
@@ -32,7 +36,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="flex justify-end">
+    <div v-if="!editId" class="flex justify-end">
         <span @click="addPrice" class="cursor-pointer hover:text-green-300">{{add?'Save':'add'}}</span>
         <span v-if="add" @click="add=false" class="cursor-pointer hover:text-green-300 ml-2">Cancel</span>
     </div>
@@ -42,15 +46,35 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
+
+const prices = ref([])
 
 let add = ref(false)
 const times = ref(null)
 const rate = ref(null)
+const editId = ref(null)
 
 function addPrice(){
+    editId.value = null
     add.value = !add.value
 }
+function editPrice(id){
+    editId.value = id
+    console.log(id)
+}
+function savePrice(){
+    editId.value = null
+}
+onMounted(()=>{
+    fetch('http://localhost:3002/prices')
+    .then(response => response.json())
+    .then(data => 
+        {
+            prices.value = data
+        }
+        )
+})
 </script>
 
 <style>

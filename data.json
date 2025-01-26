@@ -2,11 +2,33 @@
     "users": [
       { 
         "id": "1", 
-        "name": "Bal", 
-        "age": 45, 
+        "name": "Rhythm Som Poudel", 
         "email":"bal@gmail.com", 
         "password":"",
-        "role":"admin" 
+        "role":"admin" ,
+        "joined":"15-11-2024",
+        "payments": {
+          "jan": "paid",
+          "feb": "req",
+          "mar": "not-paid",
+          "apr": "",
+          "may": "",
+          "jun": "",
+          "jul": "",
+          "aug": "",
+          "sep": "",
+          "oct": "",
+          "nov": "",
+          "dec": ""
+        },
+        "skills":[],
+        "personal":{
+          "dob":"18-09-2017",
+          "height":130,
+          "weight": 32,
+          "updated": "26-01-2025"
+        },
+        "specific":[]
     },
       { 
         "id": "2", 

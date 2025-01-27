@@ -49,21 +49,11 @@
         </div>
     </div>
   </div>
-  <div class="about card">
-    <h3 class="text-xl font-bold">Skills:</h3>
-    <ol>
-        <li>1. good running (fast )</li>
-        <li>2. very interested and motivated</li>
-        <li>3. he is not good at dribbling</li>
-        <li>4. not good shoot</li>
-        <li>5. slow with ball</li>
-        <li>6. week left leg</li>
-    </ol>
-  </div>
-    <div class="s-training card">
-    <h3 class="text-xl font-bold">Specific Training</h3>
-    <p>Not taken yet.</p>
-    </div>
+  <skills-detail></skills-detail>
+<div class="s-training card">
+<h3 class="text-xl font-bold">Specific Training</h3>
+<p>Not taken yet.</p>
+</div>
   </div>
   <div v-else class="person flex justify-center items-center">
     <loading-spinner></loading-spinner>
@@ -73,6 +63,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
+import SkillsDetail from "../components/SkillsDetail.vue"
 
 const user = ref(null)
 const approve = ref(null)

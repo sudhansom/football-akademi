@@ -9,7 +9,7 @@
         "joined":"15-11-2024",
         "payments": {
           "jan": "paid",
-          "feb": "req",
+          "feb": "pending",
           "mar": "not-paid",
           "apr": "",
           "may": "",

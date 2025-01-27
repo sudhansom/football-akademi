@@ -12,40 +12,42 @@
   <div class="height-weight card">
         <p style="font-weight:bold;margin:0;"><span>Age: {{ 7.4 }} yrs</span> | <span title="Updated on jan-2025">Height: {{ user.personal.height}}cm</span> | <span title="Updated on jan-2025">Weight: {{user.personal.weight}}kg</span></p>
   </div>
-  <div class="payment card">
+  <div class="payment card relative overflow-x-auto">
+    <h3 class="text-xl font-bold">Payments:</h3>
     <table>
-        <h3 class="text-xl font-bold">Payments:</h3>
         <thead>
             <tr>
-                <th>Jan</th>
-                <th>Feb</th>
-                <th>Mar</th>
-                <th>Apr</th>
-                <th>Jun</th>
-                <th>Jul</th>
-                <th>Aug</th>
-                <th>Sep</th>
-                <th>Oct</th>
-                <th>Nov</th>
-                <th>Dec</th>
+                <th class="p-1" v-for="m in Object.keys(user.payments)" :key="m" >{{m}}</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th><i class="fa-solid fa-check text-green-500 hover:text-green-300 cursor-pointer"></i></th>
-                <th><i class="fa-solid fa-xmark text-red-500 hover:text-red-300 cursor-pointer"></i></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+            <tr >
+                <td v-for="[m,v] in Object.entries(user.payments)" :key="m" @click="updatePayment(m,v, user.payments)" class="hover:bg-gray-100 cursor-pointer">
+                    <span title="paid" v-if="v==='paid'"><i class="fa-solid fa-check text-green-500 hover:text-green-300 cursor-pointer"></i></span>
+                    <span title="request for approval" v-if="v==='pending'"><i class="fa-solid fa-check text-yellow-500 hover:text-yellow-300 cursor-pointer"></i></span>
+                    <span title="not-paid" v-if="v==='not-paid'"><i class="fa-solid fa-xmark text-red-500 hover:text-red-300 cursor-pointer"></i></span>
+                    <span v-else></span>
+                </td>
             </tr>
         </tbody>
     </table>
+    <div v-if="approve" class="absolute left-0 right-0 top-0 bottom-0">
+        <div class="absolute left-1 right-1 top-1 bottom-1 bg-gray-100 flex flex-col justify-center items-center p-1 shadow-lg rounded-lg">
+            <div class="flex gap-2">
+                <p class="font-bold mb-2 p-0">Payment for {{ approve.key }}</p>
+                <label class="mr-2">
+                    <input type="radio" name="payment" value="paid" v-model="payment"> Paid
+                </label>
+                <label for="">
+                    <input type="radio" name="payment" value="not-paid" v-model="payment"> Not paid
+                </label>
+            </div>
+            <div class="flex justify-center gap-2 mt-1">
+                <span class="py-1 px-2 bg-gray-200 border-1 rounded-md cursor-pointer hover:bg-gray-100" @click="saveApproval">Approve</span>
+                <span class="py-1 px-2 bg-gray-200 border-1 rounded-md cursor-pointer hover:bg-gray-100" @click="approve=null">Cancel</span>
+            </div>
+        </div>
+    </div>
   </div>
   <div class="about card">
     <h3 class="text-xl font-bold">Skills:</h3>
@@ -73,6 +75,8 @@ import { onMounted, ref } from "vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
 
 const user = ref(null)
+const approve = ref(null)
+const payment = ref(null)
 
 onMounted(()=>{
     fetch('http://localhost:3002/users/1')
@@ -81,6 +85,16 @@ onMounted(()=>{
         user.value = data
     })
 })
+function updatePayment(key, value, obj){
+    approve.value = {
+        key,
+        value 
+    }
+}
+function saveApproval(){
+    //fetch update database
+    console.log(`Change payment of ${approve.value.key} from ${approve.value.value} to ${payment.value}`)
+}
 </script>
 
 <style scoped>

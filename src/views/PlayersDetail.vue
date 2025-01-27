@@ -50,10 +50,7 @@
     </div>
   </div>
   <skills-detail></skills-detail>
-<div class="s-training card">
-<h3 class="text-xl font-bold">Specific Training</h3>
-<p>Not taken yet.</p>
-</div>
+  <specific-training></specific-training>
   </div>
   <div v-else class="person flex justify-center items-center">
     <loading-spinner></loading-spinner>
@@ -64,6 +61,7 @@
 import { onMounted, ref } from "vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
 import SkillsDetail from "../components/SkillsDetail.vue"
+import SpecificTraining from "../components/SpecificTraining.vue";
 
 const user = ref(null)
 const approve = ref(null)

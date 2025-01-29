@@ -3,7 +3,7 @@
     <personal-detail :user="user"></personal-detail>
     <personal-measurement :user="user"></personal-measurement>
     <payments-detail :user="user"></payments-detail>
-    <skills-detail></skills-detail>
+    <skills-detail :user="user"></skills-detail>
     <specific-training></specific-training>
   </div>
   <div v-else class="person flex justify-center items-center">

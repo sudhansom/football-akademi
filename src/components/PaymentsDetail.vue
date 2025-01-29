@@ -35,17 +35,22 @@
             </div>
         </div>
     </div>
+    <div v-if="loading" class="absolute left-0 right-0 top-0 bottom-0 flex justify-center items-center">
+    <loading-spinner ></loading-spinner>
+  </div>
   </div>
 </template>
 
 <script setup>
+import LoadingSpinner from "../components/LoadingSpinner.vue"
 import eventBus from "../../eventBus.js"
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 defineProps({
     user: Object
 })
 const approve = ref(null)
 const payment = ref("")
+const loading = ref(false);
 
 function updatePayment(key, value, obj){
     approve.value = {
@@ -54,6 +59,7 @@ function updatePayment(key, value, obj){
     }
 }
 function saveApproval(id){
+    loading.value = true;
     fetch('https://football-backend-dbpassword.up.railway.app/api/users/payments/'+id, {
     method: 'PATCH',
     headers: {
@@ -66,6 +72,7 @@ function saveApproval(id){
 }).then(response => response.json()).then(data => {
     approve.value = null;
     payment.value = "";
+    loading.value = false;
     eventBus.emit("userData")
 })
 }

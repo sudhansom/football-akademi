@@ -25,7 +25,7 @@ import eventBus from "../../eventBus.js"
 const user = ref(null)
 
 function getData(){
-    fetch('https://football-backend-dbpassword.up.railway.app/api/users/67995ae6e7dfabaa2fa58183')
+    fetch('https://football-backend-dbpassword.up.railway.app/api/users/67995b06e7dfabaa2fa58189')
     .then(response => response.json())
     .then(data => {
         user.value = data

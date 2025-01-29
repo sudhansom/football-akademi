@@ -1,5 +1,5 @@
 <template>
-  <div class="height-weight card">
+  <div class="height-weight card relative">
         <p style="font-weight:bold;margin:0;">
             <span>Age:{{ 7.4 }} yrs</span> | 
             <span title="Updated on jan-2025">

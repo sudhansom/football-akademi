@@ -19,15 +19,21 @@ import SpecificTraining from "../components/SpecificTraining.vue";
 import PaymentsDetail from "../components/PaymentsDetail.vue"
 import PersonalDetail from "../components/PersonalDetail.vue"
 import PersonalMeasurement from "../components/PersonalMeasurement.vue"
+import eventBus from "../../eventBus.js"
+
 
 const user = ref(null)
 
-onMounted(()=>{
+function getData(){
     fetch('https://football-backend-dbpassword.up.railway.app/api/users/67995ae6e7dfabaa2fa58183')
     .then(response => response.json())
     .then(data => {
         user.value = data
     })
+}
+onMounted(()=>{
+    getData();
+    eventBus.on("userData", getData);
 })
 </script>
 

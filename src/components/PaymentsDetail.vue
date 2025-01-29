@@ -39,6 +39,7 @@
 </template>
 
 <script setup>
+import eventBus from "../../eventBus.js"
 import { ref, watch } from 'vue'
 defineProps({
     user: Object
@@ -60,11 +61,12 @@ function saveApproval(id){
     },
     body: JSON.stringify({
         month: approve.value.key,
-        value: "paid"
+        value: payment.value
     })
 }).then(response => response.json()).then(data => {
-    console.log(data, approve.value.key, approve.value.value)
     approve.value = null;
+    payment.value = "";
+    eventBus.emit("userData")
 })
 }
 </script>

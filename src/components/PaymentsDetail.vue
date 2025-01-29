@@ -30,7 +30,7 @@
                 </label>
             </div>
             <div class="flex justify-center gap-2 mt-1">
-                <span class="py-1 px-2 bg-gray-200 border-1 rounded-md cursor-pointer hover:bg-gray-100" @click="saveApproval">Approve</span>
+                <span class="py-1 px-2 bg-gray-200 border-1 rounded-md cursor-pointer hover:bg-gray-100" @click="saveApproval(user.id)">Approve</span>
                 <span class="py-1 px-2 bg-gray-200 border-1 rounded-md cursor-pointer hover:bg-gray-100" @click="approve=null">Cancel</span>
             </div>
         </div>
@@ -39,22 +39,33 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 defineProps({
     user: Object
 })
 const approve = ref(null)
-const payment = ref(null)
+const payment = ref("")
 
 function updatePayment(key, value, obj){
     approve.value = {
         key,
-        value 
+        value
     }
 }
-function saveApproval(){
-    //fetch update database
-    console.log(`Change payment of ${approve.value.key} from ${approve.value.value} to ${payment.value}`)
+function saveApproval(id){
+    fetch('https://football-backend-dbpassword.up.railway.app/api/users/payments/'+id, {
+    method: 'PATCH',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        month: approve.value.key,
+        value: "paid"
+    })
+}).then(response => response.json()).then(data => {
+    console.log(data, approve.value.key, approve.value.value)
+    approve.value = null;
+})
 }
 </script>
 

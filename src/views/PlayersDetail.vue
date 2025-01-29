@@ -23,7 +23,7 @@ import PersonalMeasurement from "../components/PersonalMeasurement.vue"
 const user = ref(null)
 
 onMounted(()=>{
-    fetch('http://localhost:3002/users/1')
+    fetch('https://football-backend-dbpassword.up.railway.app/api/users/67995ae6e7dfabaa2fa58183')
     .then(response => response.json())
     .then(data => {
         user.value = data

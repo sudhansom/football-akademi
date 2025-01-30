@@ -8,6 +8,11 @@
         <label >Last Name
             <input type="text" v-model="lastName">
         </label>
+        <div v-if="imagePreview" class="shadow-md rounded-md overflow-hidden">
+            <img :src="imagePreview" alt="">
+        </div>
+        <button type="button" @click="openFilePicker">{{ imagePreview? 'Change Image' : 'Pick image' }}</button>
+        <input type="file" ref="fileInput" @change="handleFileChange" class="hidden">
        <div class="age-type">
          <label class="age">Age
             <input type="number" v-model="age">
@@ -50,11 +55,31 @@ const address = ref("")
 const phone = ref(null)
 const parentName = ref("")
 const role = ref("player")
+const fileInput = ref(null);
+const imagePreview = ref(null);
 
 function submitForm(){
     console.log(role.value)
 }
 
+// Function to trigger the file input click event
+function openFilePicker() {
+  fileInput.value.click();
+}
+
+// Function to handle file selection
+function handleFileChange(event) {
+  const file = event.target.files[0];
+  if (file) {
+    console.log('Selected file:', file);
+    // Handle the file (e.g., upload, preview, etc.)
+    const reader = new FileReader();
+    reader.onload = ()=>{
+        imagePreview.value = reader.result;
+    }
+    reader.readAsDataURL(file);
+  }
+}
 </script>
 
 <style scoped>

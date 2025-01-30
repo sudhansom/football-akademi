@@ -1,95 +1,117 @@
 {
-    "users": [
-      { 
-        "id": "1", 
-        "name": "Rhythm Som Poudel", 
-        "email":"bal@gmail.com", 
-        "password":"",
-        "role":"admin" ,
-        "joined":"15-11-2024",
-        "payments": {
-          "jan": "paid",
-          "feb": "pending",
-          "mar": "not-paid",
-          "apr": "",
-          "may": "",
-          "jun": "",
-          "jul": "",
-          "aug": "",
-          "sep": "",
-          "oct": "",
-          "nov": "",
-          "dec": ""
-        },
-        "skills":[],
-        "personal":{
-          "dob":"18-09-2017",
-          "height":130,
-          "weight": 32,
-          "updated": "26-01-2025"
-        },
-        "specific":[]
+  "users": [
+    {
+      "id": "1",
+      "name": "Rhythm Som Poudel",
+      "email": "bal@gmail.com",
+      "password": "",
+      "role": "admin",
+      "joined": "15-11-2024",
+      "payments": {
+        "jan": "paid",
+        "feb": "pending",
+        "mar": "not-paid",
+        "apr": "",
+        "may": "",
+        "jun": "",
+        "jul": "",
+        "aug": "",
+        "sep": "",
+        "oct": "",
+        "nov": "",
+        "dec": ""
+      },
+      "skills": [],
+      "personal": {
+        "dob": "18-09-2017",
+        "height": 130,
+        "weight": 32,
+        "updated": "26-01-2025"
+      },
+      "specific": []
     },
-      { 
-        "id": "2", 
-        "name": "Sudhan", 
-        "age": 42, 
-        "email":"bkspoudel@gmail.com", 
-        "password":"",
-        "role":"admin" 
+    {
+      "id": "2",
+      "name": "Sudhan",
+      "age": 42,
+      "email": "bkspoudel@gmail.com",
+      "password": "",
+      "role": "admin"
     },
-      { 
-        "id": "3", 
-        "name": "Resham", 
-        "age": 40, 
-        "email":"resham@gmail.com", 
-        "password":"",
-        "role":"helper" 
+    {
+      "id": "3",
+      "name": "Resham",
+      "age": 40,
+      "email": "resham@gmail.com",
+      "password": "",
+      "role": "helper"
     },
-      { 
-        "id": "4", 
-        "name": "Birendra", 
-        "age": 39, 
-        "email":"biren@gmail.com", 
-        "password":"",
-        "role":"player" 
+    {
+      "id": "4",
+      "name": "Birendra",
+      "age": 39,
+      "email": "biren@gmail.com",
+      "password": "",
+      "role": "player"
+    },
+    {
+      "id": "9282",
+      "name": "Bhuwan Krishna Som Poudel",
+      "dob": null,
+      "email": "bkspoudel@gmail.com",
+      "address": "Frederikssundsvej 418, 1.th",
+      "role": "player",
+      "parentName": "",
+      "password": ""
+    },
+    {
+      "id": "be2d",
+      "name": "Bhuwan Krishna Som Poudel",
+      "dob": "2025-01-16",
+      "email": "bkspoudel@gmail.com",
+      "address": "Frederikssundsvej 418, 1.th",
+      "role": "player",
+      "parentName": "",
+      "password": ""
     }
-      
-    ],
-    "events": [
-        {
-            "day": "Tuesday",
-            "time": "15:00 - 17:00"
-        },
-        {
-            "day": "Wednesday",
-            "time": "15:00 - 17:00"
-        },
-        {
-            "day": "Friday",
-            "time": "15:00 - 17:00"
-        },
-        {
-            "day": "Sunday",
-            "time": "17:00 - 19:00"
-        }
-    ],
-    "prices":[
-      {
-        "times":"1",
-        "price": 1800,
-        "id": 1
-      },
-      {
-        "times":"2",
-        "price": 2000,
-        "id": 2
-      },
-      {
-        "times":"3/full",
-        "price": 2500,
-        "id": 3
-      }
-    ]
-    
-  }
+  ],
+  "events": [
+    {
+      "day": "Tuesday",
+      "time": "15:00 - 17:00",
+      "id": "d165"
+    },
+    {
+      "day": "Wednesday",
+      "time": "15:00 - 17:00",
+      "id": "9b91"
+    },
+    {
+      "day": "Friday",
+      "time": "15:00 - 17:00",
+      "id": "53d2"
+    },
+    {
+      "day": "Sunday",
+      "time": "17:00 - 19:00",
+      "id": "1b81"
+    }
+  ],
+  "prices": [
+    {
+      "times": "1",
+      "price": 1800,
+      "id": "1"
+    },
+    {
+      "times": "2",
+      "price": 2000,
+      "id": "2"
+    },
+    {
+      "times": "3/full",
+      "price": 2500,
+      "id": "3"
+    }
+  ]
+}

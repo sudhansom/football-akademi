@@ -2,20 +2,20 @@
   <div class="registration">
     <h3>Registration Form</h3>
     <form action="" @submit.prevent="submitForm">
-        <label >First Name
-            <input type="text" v-model="firstName">
+        <label >Name
+            <input type="text" v-model="name">
         </label>
-        <label >Last Name
-            <input type="text" v-model="lastName">
+        <label >Email
+            <input type="email" v-model="email">
         </label>
         <div v-if="imagePreview" class="shadow-md rounded-md overflow-hidden">
-            <img :src="imagePreview" alt="">
+            <img :src="imagePreview" alt="" class="block">
         </div>
-        <button type="button" @click="openFilePicker">{{ imagePreview? 'Change Image' : 'Pick image' }}</button>
+        <button type="button" @click="openFilePicker">{{ image? 'Change Image' : 'Pick image' }}</button>
         <input type="file" ref="fileInput" @change="handleFileChange" class="hidden">
        <div class="age-type">
-         <label class="age">Age
-            <input type="number" v-model="age">
+         <label class="age">Birth Date
+            <input type="date" v-model="dob">
         </label>
          <label class="type">Role
             <select v-model="role">
@@ -33,6 +33,12 @@
         <label >Parent's Name
             <input type="text" v-model="parentName">
         </label>
+        <label >Password
+            <input type="password" v-model="password">
+        </label>
+        <label >Confirm Password
+            <input type="confirmPassword" v-model="confirmPassword">
+        </label>
         <button>Submit</button>
     </form>
     <div class="login">
@@ -47,19 +53,44 @@
 <script setup>
 import { ref } from "vue"
 
-const firstName = ref("")
-const lastName = ref("")
-const age = ref(0)
+const name = ref("")
+const dob = ref(null)
 const email = ref("")
 const address = ref("")
 const phone = ref(null)
 const parentName = ref("")
 const role = ref("player")
 const fileInput = ref(null);
+const image = ref(null);
+const password = ref("")
+const confirmPassword = ref("")
+
 const imagePreview = ref(null);
 
+
 function submitForm(){
-    console.log(role.value)
+    const form = new FormData();
+    form.append("name", name.value);
+    form.append("dob", dob.value);
+    form.append("email", email.value);
+    form.append("address", address.value);
+    form.append("role", role.value);
+    form.append("parentName", parentName.value);
+    form.append("password", password.value);
+    form.append("image", image.value);
+
+  // Submit the form data to the server
+  fetch("http://localhost:5000/api/users/", {
+    method: 'POST',
+    body:form
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log("Success1:", data);
+    })
+    .catch((error) => {
+      console.log("Error: new error", error);
+    });
 }
 
 // Function to trigger the file input click event
@@ -70,6 +101,7 @@ function openFilePicker() {
 // Function to handle file selection
 function handleFileChange(event) {
   const file = event.target.files[0];
+  image.value = file;
   if (file) {
     console.log('Selected file:', file);
     // Handle the file (e.g., upload, preview, etc.)
@@ -123,11 +155,12 @@ h3 {
     gap: 12px;
 }
 .age {
-    max-width: 100px;
-}
-.type {
+    max-width: 120px;
     flex-grow: 1;
 }
+/* .type {
+    flex-grow: 1;
+} */
 .link {
     color: #646cff;
 }

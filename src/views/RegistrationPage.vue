@@ -77,16 +77,16 @@ function submitForm(){
     form.append("role", role.value);
     form.append("parentName", parentName.value);
     form.append("password", password.value);
-    form.append("image", image.value);
+    form.append("image", image.value, name.value);
 
   // Submit the form data to the server
-  fetch("http://localhost:5000/api/users/", {
+  fetch("https://football-backend-dbpassword.up.railway.app/api/users", {
     method: 'POST',
     body:form
   })
     .then(response => response.json())
     .then(data => {
-      console.log("Success1:", data);
+      console.log("Success:", data);
     })
     .catch((error) => {
       console.log("Error: new error", error);

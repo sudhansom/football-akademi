@@ -21,24 +21,31 @@
 
 <script setup>
 import { ref } from "vue"
+import { useRouter } from 'vue-router';
 
 const email = ref("")
 const password = ref("")
 
+const router = useRouter();
 const data = ref([])
 
 function submitForm(){
-    fetch(`http://localhost:3002/users`)
+    fetch(`https://football-backend-dbpassword.up.railway.app/api/users/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email:email.value,
+            password:password.value
+        })    
+    })
     .then(response => response.json())
     .then(data => {
         data = data;
-        let res = data.find(a => a.email === email.value && a.password === password.value)
-        console.log(res)
-        if(res){
-            console.log('Logged in')
-        }else {
-            alert('Wrong credentials')
-        }
+        localStorage.setItem("userId", data.id);
+        localStorage.setItem("userRole", data.role);
+        router.push(`/info/detail/${data.id}`);
     })
 }
 

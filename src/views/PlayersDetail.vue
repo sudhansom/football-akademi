@@ -21,11 +21,14 @@ import PersonalDetail from "../components/PersonalDetail.vue"
 import PersonalMeasurement from "../components/PersonalMeasurement.vue"
 import eventBus from "../../eventBus.js"
 
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
+const userId = route.params.id; // Get dynamic ID from URL
 const user = ref(null)
 
 function getData(){
-    fetch('https://football-backend-dbpassword.up.railway.app/api/users/67995b06e7dfabaa2fa58189')
+    fetch('https://football-backend-dbpassword.up.railway.app/api/users/'+ userId)
     .then(response => response.json())
     .then(data => {
         user.value = data

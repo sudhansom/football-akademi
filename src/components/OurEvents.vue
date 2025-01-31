@@ -3,7 +3,7 @@
         <h3 class="font-bold text-xl text-center mb-1">Our Programs</h3>
         <div>
             <div v-if="events?.length" class="flex flex-col">
-                <span class="hover:bg-gray-300 p-1 flex justify-center" v-for="event in events" :key="event">{{event.day}} - {{event.time}}
+                <span class="hover:bg-gray-300 p-1 flex justify-center" v-for="event in events" :key="event">{{event.day}} - {{event.slot}}
                 <span>
                     <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-10"><i class="fa-solid fa-trash hover:text-red-500"></i></span> <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
                 </span>
@@ -50,16 +50,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 let editModal = ref(false)
 let addNew = ref(false)
 let day = ref("Sunday")
 let newday = ref("")
 let time = ref("15:00 - 17:00")
-defineProps({
-    events: Array
-})
+const events = ref([]);
+
 function toggleEdit(event, id, d){
     newday.value = d
     console.log(id);
@@ -69,6 +68,15 @@ function addNewEvent(){
     addNew.value = !addNew.value
     console.log(day.value);
 }
+onMounted(()=>{
+    fetch('https://football-backend-dbpassword.up.railway.app/api/schedules')
+    .then(response => response.json())
+    .then(data => 
+        {
+            events.value = data.sort((a,b)=>a.serial - b.serial);
+        }
+        )
+})
 </script>
 
 <style scoped>

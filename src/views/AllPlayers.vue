@@ -14,22 +14,34 @@
                 <th></th>
                 <th>Name</th>
                 <th>Address</th>
-                <th>Age</th>
+                <th>Dob</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="i in 10" :key="i">
-                <td>{{i}}</td>
-                <td><router-link to="/info/detail">Sudhan</router-link></td>
-                <td>Husum</td>
-                <td>7</td>
+            <tr v-for="(user,index) in users" :key="user.id">
+                <td>{{ index + 1 }}</td>
+                <td title="click to see detail"><router-link :to="'/info/detail/' + user.id"><span class="font-bold hover:text-gray-500">{{ user.name }}</span></router-link></td>
+                <td>{{user.address}}</td>
+                <td>{{ user.dob.slice(0, 10)}}</td>
             </tr>
         </tbody>
     </table>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+const users = ref([])
 
+function getData(){
+    fetch('https://football-backend-dbpassword.up.railway.app/api/users')
+    .then(response => response.json())
+    .then(data => {
+        users.value = data
+    })
+}
+onMounted(()=>{
+    getData();
+})
 </script>
 
 <style scoped>

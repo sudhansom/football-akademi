@@ -23,7 +23,7 @@
             <div class="flex gap-2">
                 <p class="font-bold mb-2 p-0">Payment for {{ approve.key }}</p>
                 <label class="mr-2">
-                    <input type="radio" name="payment" value="paid" v-model="payment"> Paid
+                    <input type="radio" name="payment" :value="role==='admin'?'paid':'pending'" v-model="payment"> Paid
                 </label>
                 <label for="">
                     <input type="radio" name="payment" value="not-paid" v-model="payment"> Not paid
@@ -45,12 +45,15 @@
 import LoadingSpinner from "../components/LoadingSpinner.vue"
 import eventBus from "../../eventBus.js"
 import { ref } from 'vue'
+
 defineProps({
     user: Object
 })
 const approve = ref(null)
 const payment = ref("")
 const loading = ref(false);
+const role = ref(localStorage.getItem("userRole"))
+
 
 function updatePayment(key, value, obj){
     approve.value = {

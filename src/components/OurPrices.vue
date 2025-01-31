@@ -14,7 +14,7 @@
         <tbody>
             <tr v-for="p in prices" :key="p.id">
                 <td>
-                    <input v-if="editId==p.id" type="text" :placeholder="p.times" class="bg-white text-center">
+                    <input v-if="editId==p.id" type="text" :placeholder="p.times" class="bg-white text-center w-12">
                     <span v-else>{{p.times}}</span>
                 </td>
                 <td>
@@ -71,17 +71,16 @@ function addPrice(){
 function editPrice(id){
     add.value = false
     editId.value = id
-    console.log(id)
 }
 function savePrice(){
     editId.value = null
 }
 onMounted(()=>{
-    fetch('http://localhost:3002/prices')
+    fetch('https://football-backend-dbpassword.up.railway.app/api/prices')
     .then(response => response.json())
     .then(data => 
         {
-            prices.value = data
+            prices.value = data.sort((a,b)=>a.serial - b.serial);
         }
         )
 })

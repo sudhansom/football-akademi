@@ -5,7 +5,7 @@
         <p><b>Started on: {{user.joined.slice(0,10)}}</b></p>
     </div>
     <div class="border-gray-300 h-32 w-32">
-        <img src="../assets/hrithm.png" alt="">
+        <img :src="user.imagePath" :alt="user.name" class="h-full w-full object-cover shadow-lg rounded-md">
     </div>
   </div>
 </template>

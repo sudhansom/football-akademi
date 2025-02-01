@@ -23,8 +23,8 @@
 import { ref } from "vue"
 import { useRouter } from 'vue-router';
 
-const email = ref("")
-const password = ref("")
+const email = ref("sulav@gmail.com")
+const password = ref("sulav")
 
 const router = useRouter();
 const data = ref([])
@@ -41,11 +41,12 @@ function submitForm(){
         })    
     })
     .then(response => response.json())
-    .then(data => {
-        data = data;
-        localStorage.setItem("userId", data.id);
-        localStorage.setItem("userRole", data.role);
-        router.push(`/info/detail/${data.id}`);
+    .then(d => {
+        data.value = d.result;
+        localStorage.setItem("userId", d.result.id);
+        localStorage.setItem("userRole", d.result.role);
+        localStorage.setItem('token', d.token)
+        router.push(`/info/detail/${d.result.id}`);
     }).catch(error=>console.log(error)
     )
 }

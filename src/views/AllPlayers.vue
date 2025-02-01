@@ -31,9 +31,17 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 const users = ref([])
+const token = ref(localStorage.getItem("token"))
 
+
+// https://football-backend-dbpassword.up.railway.app/api/users
 function getData(){
-    fetch('https://football-backend-dbpassword.up.railway.app/api/users')
+    fetch('https://football-backend-dbpassword.up.railway.app/api/users/', {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " +token.value
+        },
+    })
     .then(response => response.json())
     .then(data => {
         users.value = data

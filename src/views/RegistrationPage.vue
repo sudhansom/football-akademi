@@ -56,7 +56,9 @@
 <script setup>
 import { ref } from "vue"
 import LoadingSpinner from '../components/LoadingSpinner.vue'
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 
 const name = ref("")
 const dob = ref(null)
@@ -87,8 +89,11 @@ function submitForm(){
     form.append("password", password.value);
     form.append("image", image.value, name.value);
 
+
   // Submit the form data to the server
-  fetch("https://football-backend-dbpassword.up.railway.app/api/users", {
+//   http://localhost:5000/api/users/
+// https://football-backend-dbpassword.up.railway.app/api/users
+  fetch("https://football-backend-dbpassword.up.railway.app/api/users/", {
     method: 'POST',
     body:form
   })
@@ -96,6 +101,7 @@ function submitForm(){
     .then(data => {
       console.log("Success:", data);
         loading.value = false;
+        router.push('/login')
     })
     .catch((error) => {
       console.log("Error: new error", error);

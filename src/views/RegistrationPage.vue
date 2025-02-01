@@ -1,5 +1,5 @@
 <template>
-  <div class="registration">
+  <div class="registration relative">
     <h3>Registration Form</h3>
     <form action="" @submit.prevent="submitForm">
         <label >Name
@@ -41,6 +41,9 @@
         </label>
         <button>Submit</button>
     </form>
+    <div v-if="loading">
+        <loading-spinner></loading-spinner>
+    </div>
     <div class="login">
         <p>Already a user?</p>
         <router-link to="/login" class="link">
@@ -52,6 +55,8 @@
 
 <script setup>
 import { ref } from "vue"
+import LoadingSpinner from '../components/LoadingSpinner.vue'
+
 
 const name = ref("")
 const dob = ref(null)
@@ -67,8 +72,11 @@ const confirmPassword = ref("")
 
 const imagePreview = ref(null);
 
+const loading = ref(false);
+
 
 function submitForm(){
+    loading.value = true;
     const form = new FormData();
     form.append("name", name.value);
     form.append("dob", dob.value);
@@ -87,9 +95,12 @@ function submitForm(){
     .then(response => response.json())
     .then(data => {
       console.log("Success:", data);
+        loading.value = false;
     })
     .catch((error) => {
       console.log("Error: new error", error);
+        loading.value = false;
+
     });
 }
 

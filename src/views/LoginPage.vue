@@ -46,7 +46,8 @@ function submitForm(){
         localStorage.setItem("userId", data.id);
         localStorage.setItem("userRole", data.role);
         router.push(`/info/detail/${data.id}`);
-    })
+    }).catch(error=>console.log(error)
+    )
 }
 
 </script>

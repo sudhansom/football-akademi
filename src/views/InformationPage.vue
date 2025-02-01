@@ -3,7 +3,7 @@
     <div class="links">
         <router-link class="each-tab" to="/info">General</router-link>
         <router-link class="each-tab" to="/info/all-players" >Players</router-link>
-        <router-link class="each-tab" to="/info/all-players" >Something else</router-link>
+        <router-link class="each-tab" to="/info/important-message" >Message</router-link>
     </div>
     <router-view></router-view>
   </div>

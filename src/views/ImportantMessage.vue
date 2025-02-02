@@ -19,7 +19,7 @@
         <td>
           <span>
               <span @click="deleteMessage" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block ml-10"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
-              <span @click="edit=true" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block ml-6"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
+              <span @click="editMessage(message.message, message.active, message.id)" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block ml-6"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
           </span>
         </td>
       </tr>
@@ -27,8 +27,8 @@
   </table>
   <div v-if="edit" class="absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-95">
     <div class="flex justify-center items-center gap-2 p-2">
-      <input type="text" class="bg-white rounded-md p-1 border-blue-500">
-      <input type="checkbox" class="bg-white rounded-md p-1">Active
+      <input v-model="currentMessage.message" type="text" class="bg-white rounded-md p-1 border-blue-500">
+      <input v-model="currentMessage.active" type="checkbox" class="bg-white rounded-md p-1">Active
     </div>
     <button @click="updateMessage" class="p-1">Save</button>
     <button @click="edit=false" class="p-1 ml-4">Cancel</button>
@@ -42,8 +42,10 @@ import { ref, onMounted } from 'vue';
 
 const messages = ref([])
 const edit = ref(false);
+const loading = ref(false);
+const currentMessage = ref(null);
 
-function getMessage(){
+function getMessages(){
   fetch('https://football-backend-dbpassword.up.railway.app/api/messages/')
   .then(response => response.json())
   .then(data => {
@@ -53,17 +55,39 @@ function getMessage(){
   })
 }
 onMounted(()=>{
-  getMessage();
+  getMessages();
 })
-function editMessage(){
+function editMessage(message, active, id){
   edit.value = true;
-  console.log('edit message')
+  currentMessage.value = {
+    message,
+    active,
+    id
+  }
+  
 }
 function deleteMessage(){
   console.log('delete message')
 }
 function addMessage(){
   console.log('add message')
+}
+function updateMessage(){
+    loading.value = true;
+    fetch('https://football-backend-dbpassword.up.railway.app/api/messages/'+ currentMessage.value.id, {
+    method: 'PATCH',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        message: currentMessage.value.message,
+        active: currentMessage.value.active,
+    })
+}).then(response => response.json()).then(data => {
+    edit.value = false;
+    loading.value = false;
+    getMessages();
+})
 }
 </script>
 

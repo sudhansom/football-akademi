@@ -40,13 +40,17 @@
     <button @click="addMessage" class="p-1">Save</button>
     <button @click="addNew=false" class="p-1 ml-4">Cancel</button>
   </div>
-  <button @click="addNew=!addNew">{{ addNew? "Cancel" : "Add New"}}</button>
+  <button class="mt-2" @click="addNew=!addNew">{{ addNew? "Cancel" : "Add New"}}</button>
+  <div v-if="loading" class="flex justify-center items-center absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-70">
+    <loading-spinner />
+  </div>
   </div>
  </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import LoadingSpinner from "../components/LoadingSpinner.vue"
 
 const messages = ref([])
 const edit = ref(false);
@@ -83,6 +87,7 @@ function deleteMessage(id){
         'Content-Type': 'application/json',
     },
 }).then(response => response.json()).then(data => {
+    loading.value = false;
     getMessages();
 })
 }

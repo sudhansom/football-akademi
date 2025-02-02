@@ -18,7 +18,7 @@
         <td>{{ message.active? "active" : "disabled" }}</td>
         <td>
           <span>
-              <span @click="deleteMessage" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block ml-10"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
+              <span @click="deleteMessage(message.id)" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block ml-10"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
               <span @click="editMessage(message.message, message.active, message.id)" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block ml-6"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
           </span>
         </td>
@@ -75,8 +75,16 @@ function editMessage(message, active, id){
   }
   
 }
-function deleteMessage(){
-  console.log('delete message')
+function deleteMessage(id){
+   loading.value = true;
+    fetch('https://football-backend-dbpassword.up.railway.app/api/messages/'+id, {
+    method: 'DELETE',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+}).then(response => response.json()).then(data => {
+    getMessages();
+})
 }
 function addMessage(){
   loading.value = true;

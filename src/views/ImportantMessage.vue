@@ -33,12 +33,14 @@
     <button @click="updateMessage" class="p-1">Save</button>
     <button @click="edit=false" class="p-1 ml-4">Cancel</button>
   </div>
-  <div v-if="addNew" class="absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-95">
-    <div class="flex justify-center items-center gap-2 p-2">
-      <input v-model="currentMessage.message" type="text" class="bg-white rounded-md p-1 border-blue-500">
+  <div v-if="addNew" class="absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-95 flex flex-col justify-around items-center">
+    <div class="flex justify-center items-center gap-2 p-2 w-full">
+      <input v-model="currentMessage.message" type="text" class="bg-white rounded-md p-1 border-blue-500 w-full">
     </div>
-    <button @click="addMessage" class="p-1">Save</button>
-    <button @click="addNew=false" class="p-1 ml-4">Cancel</button>
+    <div>
+      <button @click="addMessage" class="p-1">Save</button>
+      <button @click="addNew=false" class="p-1 ml-4">Cancel</button>
+    </div>
   </div>
   <button class="mt-2" @click="addNew=!addNew">{{ addNew? "Cancel" : "Add New"}}</button>
   <div v-if="loading" class="flex justify-center items-center absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-70">
@@ -131,6 +133,11 @@ function updateMessage(){
 }).then(response => response.json()).then(data => {
     edit.value = false;
     loading.value = false;
+    currentMessage.value = {
+      message:"",
+      active:false, 
+      id:undefined
+    }
     getMessages();
 })
 }

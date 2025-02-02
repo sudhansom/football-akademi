@@ -20,7 +20,7 @@
         <tbody>
             <tr v-for="(user,index) in users" :key="user.id">
                 <td>{{ index + 1 }}</td>
-                <td title="click to see detail"><router-link :to="'/info/detail/' + user.id"><span class="font-bold hover:text-gray-500">{{ user.name }}</span></router-link></td>
+                <td :title="(role==='admin' || user.id === userId)?'click to see detail':'Need to be admin to see the detail'"><router-link :to="gotoLink(user.id)"><span class="font-bold hover:text-gray-500">{{ user.name }}</span></router-link></td>
                 <td>{{user.address}}</td>
                 <td>{{ user.dob.slice(0, 10)}}</td>
             </tr>
@@ -29,9 +29,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 const users = ref([])
 const token = ref(localStorage.getItem("token"))
+const role = ref(localStorage.getItem("userRole"));
+const userId = ref(localStorage.getItem("userId"));
+
 
 //  http://localhost:5000/api/users/
 // https://football-backend-dbpassword.up.railway.app/api/users
@@ -50,6 +53,14 @@ function getData(){
 onMounted(()=>{
     getData();
 })
+
+function gotoLink (id){
+    if(role.value==='admin' || userId.value===id){
+        return '/info/detail/' + id
+    }else {
+        return "/login"
+    }
+}
 </script>
 
 <style scoped>

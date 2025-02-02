@@ -31,6 +31,7 @@ function logoutUser(){
   console.log('hellooooo')
   localStorage.removeItem("userRole")
   localStorage.removeItem("userId")
+  localStorage.removeItem("token")
   loggedIn.value = undefined
   router.push("/");
 

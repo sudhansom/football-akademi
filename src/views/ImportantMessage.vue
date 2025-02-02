@@ -1,15 +1,70 @@
 <template>
  <div class="text-center">
-     <h1 class="font-bold text-3xl">Important message</h1>
-  <p>message: string</p>
-  <p>active: boolean</p>
-  <hr>
-  <p>save all the message and show the active only.</p>
+     <h3 class="font-bold text-3xl mb-4">Important messages</h3>
+  <div class="relative">
+    <table>
+    <thead>
+      <tr>
+        <th>S.N</th>
+        <th>Message</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(message, index) in messages" :key="message">
+        <td>{{ index }}</td>
+        <td>{{ message.message }}</td>
+        <td>{{ message.active? "active" : "disabled" }}</td>
+        <td>
+          <span>
+              <span @click="deleteMessage" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block ml-10"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
+              <span @click="edit=true" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block ml-6"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div v-if="edit" class="absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-95">
+    <div class="flex justify-center items-center gap-2 p-2">
+      <input type="text" class="bg-white rounded-md p-1 border-blue-500">
+      <input type="checkbox" class="bg-white rounded-md p-1">Active
+    </div>
+    <button @click="updateMessage" class="p-1">Save</button>
+    <button @click="edit=false" class="p-1 ml-4">Cancel</button>
+  </div>
+  </div>
  </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 
+const messages = ref([])
+const edit = ref(false);
+
+function getMessage(){
+  fetch('https://football-backend-dbpassword.up.railway.app/api/messages/')
+  .then(response => response.json())
+  .then(data => {
+    messages.value = data;
+  }).catch(err => {
+    console.log(err);   
+  })
+}
+onMounted(()=>{
+  getMessage();
+})
+function editMessage(){
+  edit.value = true;
+  console.log('edit message')
+}
+function deleteMessage(){
+  console.log('delete message')
+}
+function addMessage(){
+  console.log('add message')
+}
 </script>
 
 <style>

@@ -33,6 +33,14 @@
     <button @click="updateMessage" class="p-1">Save</button>
     <button @click="edit=false" class="p-1 ml-4">Cancel</button>
   </div>
+  <div v-if="addNew" class="absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-95">
+    <div class="flex justify-center items-center gap-2 p-2">
+      <input v-model="currentMessage.message" type="text" class="bg-white rounded-md p-1 border-blue-500">
+    </div>
+    <button @click="addMessage" class="p-1">Save</button>
+    <button @click="addNew=false" class="p-1 ml-4">Cancel</button>
+  </div>
+  <button @click="addNew=!addNew">{{ addNew? "Cancel" : "Add New"}}</button>
   </div>
  </div>
 </template>
@@ -43,7 +51,8 @@ import { ref, onMounted } from 'vue';
 const messages = ref([])
 const edit = ref(false);
 const loading = ref(false);
-const currentMessage = ref(null);
+const currentMessage = ref({message:"",active:false, id:undefined});
+const addNew = ref(false);
 
 function getMessages(){
   fetch('https://football-backend-dbpassword.up.railway.app/api/messages/')
@@ -70,7 +79,21 @@ function deleteMessage(){
   console.log('delete message')
 }
 function addMessage(){
-  console.log('add message')
+  loading.value = true;
+    fetch('https://football-backend-dbpassword.up.railway.app/api/messages/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        message: currentMessage.value.message,
+    })
+}).then(response => response.json()).then(data => {
+    loading.value = false;
+    currentMessage.value.message = "";
+    addNew.value = false;
+    getMessages();
+})
 }
 function updateMessage(){
     loading.value = true;

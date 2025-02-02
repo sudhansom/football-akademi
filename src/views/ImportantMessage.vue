@@ -44,6 +44,10 @@
   <div v-if="loading" class="flex justify-center items-center absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-70">
     <loading-spinner />
   </div>
+  <div v-if="warning" class="flex justify-center flex-col items-center absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-95">
+    <p class="font-bold text-xl text-red-700">You should have only one active message!!</p>
+    <button @click="warning=false" class="mt-2">OK</button>
+  </div>
   </div>
  </div>
 </template>
@@ -57,11 +61,16 @@ const edit = ref(false);
 const loading = ref(false);
 const currentMessage = ref({message:"",active:false, id:undefined});
 const addNew = ref(false);
+const warning = ref(false);
 
 function getMessages(){
   fetch('https://football-backend-dbpassword.up.railway.app/api/messages/')
   .then(response => response.json())
   .then(data => {
+    const activeMessage = data.filter(m => m.active)
+    if(activeMessage.length > 1){
+      warning.value = true;
+    }
     messages.value = data;
   }).catch(err => {
     console.log(err);   

@@ -35,6 +35,12 @@
             <tr v-if="add">
                 <td><input v-model="times" type="text" class="bg-white text-center"></td>
                 <td><input v-model="rate" type="text" class="bg-white text-center"></td>
+                <td>
+                     <span v-if="add">
+                        <span title="Save the changes" @click="add=false" class="cursor-pointer"><i class="fa-solid fa-floppy-disk text-green-300 hover:text-green-600"></i></span>
+                        <span title="Cancel adding new" @click="add=false" class="cursor-pointer ml-2"> <i class="fa-solid fa-xmark text-gray-400 hover:text-gray-700"></i></span>
+                    </span>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -43,10 +49,6 @@
     </div>
     <div v-if="!editId" class="flex justify-end">
         <span v-if="!add" title="Add a new price" @click="add=true" class="cursor-pointer"><i class="fa-solid fa-plus text-green-800 hover:text-green-500"></i></span>
-        <span v-else>
-            <span title="Save the changes" @click="add=false" class="cursor-pointer"><i class="fa-solid fa-floppy-disk text-green-800 hover:text-green-500"></i></span>
-            <span title="Cancel adding new" @click="add=false" class="cursor-pointer ml-2"> <i class="fa-solid fa-xmark text-gray-400 hover:text-gray-700"></i></span>
-        </span>
     </div>
     <p class="mt-2"><b>Specific training: 5000 dkk / package</b></p>
     <p>5 trainings(1 hour each) in each package.</p>

@@ -1,13 +1,22 @@
 <template>
-    <div class="flex justify-between border-1 border-gray-200 rounded-lg mb-2 p-1">
-        <input v-model="searchName" class="border-1 border-gray-200 rounded-lg py-1 px-2" type="text" placeholder="Search by Name">
-        <select v-model="type" class="border-1 border-gray-200 rounded-lg py-1 px-2 w-24" >
+    <div class="flex justify-between items-center border-1 border-gray-200 rounded-lg mb-2 p-1">
+        <input v-model="searchName" class="border-1 border-gray-200 rounded-lg py-1 px-2 w-36" type="text" placeholder="Search by Name">
+        <label for="">Role:</label>
+        <select v-model="type" class="border-1 border-gray-200 rounded-lg py-1 px-2 w-18" >
             <option value="">Type</option>
             <option value="admin">Admin</option>
             <option value="player">Player</option>
             <option value="helper">Helper</option>
         </select>
-        <input v-model="age" class="border-1 border-gray-200 rounded-lg py-1 px-2 w-24" type="number" placeholder="Age">
+        <label for="">Rank:</label>
+        <select  class="border-1 border-gray-200 rounded-lg py-1 px-2 w-10" >
+            <option value="">A</option>
+            <option value="admin">B</option>
+            <option value="player">C</option>
+            <option value="helper">D</option>
+        </select>
+        <label for="">Age:</label>
+        <input v-model="age" class="border-1 border-gray-200 rounded-lg p-1 w-12" type="number" placeholder="Age">
     </div>
     <table>
         <thead>

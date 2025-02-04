@@ -5,7 +5,9 @@
         <li class="hover:bg-gray-300" v-for="(skill,ind) in user.skills" :key="skill">
             <span class="p-1">
                 <span>{{ ind + 1 }}. </span>
-                <span v-if="edit && index === ind"><input type="text" v-model="user.skills[ind]" class="bg-white px-1 rounded-md"></span>
+                <span v-if="edit && index === ind">
+                    <input type="text" v-model="user.skills[ind]" class="bg-white px-1 rounded-md">
+                </span>
                 <span v-if="index != ind"><span> {{ skill }}</span></span>
             </span>
             <span>

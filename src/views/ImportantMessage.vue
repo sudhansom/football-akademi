@@ -14,12 +14,12 @@
     <tbody>
       <tr v-for="(message, index) in messages" :key="message">
         <td>{{ index }}</td>
-        <td>{{ message.message }}</td>
+        <td :title="displayDate(message.createdAt, message.updatedAt)">{{ message.message }}</td>
         <td>{{ message.active? "active" : "disabled" }}</td>
         <td>
           <span>
-              <span @click="deleteMessage(message.id)" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block ml-10"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
-              <span @click="editMessage(message.message, message.active, message.id)" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block ml-6"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
+              <span title="click to delete" @click="deleteMessage(message.id)" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block ml-10"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
+              <span title="click to edit" @click="editMessage(message.message, message.active, message.id)" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block ml-6"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
           </span>
         </td>
       </tr>
@@ -140,6 +140,9 @@ function updateMessage(){
     }
     getMessages();
 })
+}
+function displayDate(created, updated){
+  return `Created at: ${created.slice(0, 10)}, Updated at: ${updated.slice(0, 10)}`
 }
 </script>
 

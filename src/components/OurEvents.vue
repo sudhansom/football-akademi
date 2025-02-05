@@ -2,7 +2,7 @@
     <div class="relative bg-stone-100 rounded-lg p-3">
         <h3 class="font-bold text-xl text-center mb-1">Our Programs</h3>
         <div>
-            <div v-if="events?.length" class="flex flex-col">
+            <div v-if="allEvents.events?.length" class="flex flex-col">
                 <span class="hover:bg-gray-300 p-1 flex justify-center" v-for="event in events" :key="event">{{event.day}} - {{event.slot}}
                 <span>
                     <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-10"><i class="fa-solid fa-trash hover:text-red-500"></i></span> <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
@@ -52,12 +52,14 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
+import { useEventStore } from '../stores/EventStore'
+
 let editModal = ref(false)
 let addNew = ref(false)
 let day = ref("Sunday")
 let newday = ref("")
 let time = ref("15:00 - 17:00")
-const events = ref([]);
+const allEvents = useEventStore()
 
 function toggleEdit(event, id, d){
     newday.value = d
@@ -69,13 +71,7 @@ function addNewEvent(){
     console.log(day.value);
 }
 onMounted(()=>{
-    fetch('https://football-backend-dbpassword.up.railway.app/api/schedules')
-    .then(response => response.json())
-    .then(data => 
-        {
-            events.value = data.sort((a,b)=>a.serial - b.serial);
-        }
-        )
+   
 })
 </script>
 

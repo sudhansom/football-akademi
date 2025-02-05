@@ -46,16 +46,16 @@
   <div v-if="loading" class="flex justify-center items-center absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-70">
     <loading-spinner />
   </div>
-  <div v-if="warning" class="flex justify-center flex-col items-center absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-95">
+  <div v-if="warning & !closeWarning" class="flex justify-center flex-col items-center absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-95">
     <p class="font-bold text-xl text-red-700">You should have only one active message!!</p>
-    <button @click="warning=false" class="mt-2">OK</button>
+    <button @click="closeWarning=true" class="mt-2">OK</button>
   </div>
   </div>
  </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import LoadingSpinner from "../components/LoadingSpinner.vue"
 
 import { useMessageStore } from "../stores/MessageStore"
@@ -65,7 +65,7 @@ const edit = ref(false);
 const loading = ref(false);
 const currentMessage = ref({message:"",active:false, id:undefined});
 const addNew = ref(false);
-const warning = ref(false);
+const closeWarning = ref(false);
 
 onMounted(()=>{
   messages.fill();
@@ -127,12 +127,17 @@ function updateMessage(){
       active:false, 
       id:undefined
     }
+    closeWarning.value = false;
     messages.fill();
 })
 }
 function displayDate(created, updated){
   return `Created at: ${created.slice(0, 10)}, Updated at: ${updated.slice(0, 10)}`
 }
+
+const warning = computed(()=>{
+  return messages.messages.filter(m => m.active).length > 1
+})
 </script>
 
 <style>

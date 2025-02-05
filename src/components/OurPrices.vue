@@ -1,7 +1,7 @@
 <template>
   <div class="bg-stone-100 rounded-lg p-3 text-center">
     <h3 class="font-bold text-xl mb-1">Prices</h3>
-    <table v-if="prices.length" class="">
+    <table v-if="prices.prices.length" class="">
         <thead>
             <tr>
                 <th>Times / week</th>
@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="p in prices" :key="p.id">
+            <tr v-for="p in prices.prices" :key="p.id">
                 <td>
                     <input v-if="editId==p.id" type="text" :placeholder="p.times" class="bg-white text-center w-12">
                     <span v-else>{{p.times}}</span>
@@ -58,8 +58,9 @@
 <script setup>
 import { ref, onMounted } from "vue"
 import LoadingSpinner from "./LoadingSpinner.vue"
+import { usePriceStore } from "../stores/PriceStore"
 
-const prices = ref([])
+const prices = usePriceStore()
 
 let add = ref(false)
 const times = ref(null)
@@ -78,13 +79,7 @@ function savePrice(){
     editId.value = null
 }
 onMounted(()=>{
-    fetch('https://football-backend-dbpassword.up.railway.app/api/prices')
-    .then(response => response.json())
-    .then(data => 
-        {
-            prices.value = data.sort((a,b)=>a.serial - b.serial);
-        }
-        )
+   prices.fill() 
 })
 </script>
 

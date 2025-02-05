@@ -10,7 +10,7 @@ export const useMessageStore = defineStore('messages', {
     async fill() {
       try {
         // Fetch data from the API
-        const response = await axios.get('https://football-backend-dbpassword.up.railway.app/api/messages');
+        const response = await axios.get('/messages');
 
         const data = response.data;
 

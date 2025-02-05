@@ -83,14 +83,14 @@ function editMessage(message, active, id){
 }
 async function deleteMessage(id){
    loading.value = true;
-    await axios.delete('https://football-backend-dbpassword.up.railway.app/api/messages/'+id)
+    await axios.delete('/messages/'+id)
     loading.value = false;
     messages.fill();
 }
 async function addMessage(){
   loading.value = true;
     try{
-          await axios.post('https://football-backend-dbpassword.up.railway.app/api/messages/', {
+          await axios.post('/messages/', {
           message: currentMessage.value.message,
         })
       }catch(err){
@@ -105,7 +105,7 @@ async function addMessage(){
 async function updateMessage(){
     loading.value = true;
     try{
-      await axios.patch('https://football-backend-dbpassword.up.railway.app/api/messages/'+ currentMessage.value.id, {
+      await axios.patch('/messages/'+ currentMessage.value.id, {
         message: currentMessage.value.message,
         active: currentMessage.value.active,
       })

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import axios from 'axios'
 
 export const useMessageStore = defineStore('messages', {
   state: () => ({
@@ -9,15 +10,9 @@ export const useMessageStore = defineStore('messages', {
     async fill() {
       try {
         // Fetch data from the API
-        const response = await fetch('https://football-backend-dbpassword.up.railway.app/api/messages');
+        const response = await axios.get('https://football-backend-dbpassword.up.railway.app/api/messages');
 
-        // Check if the response is OK
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        // Parse the JSON data
-        const data = await response.json();
+        const data = response.data;
 
         // Update the state
         this.messages = data; // Direct assignment (reactive)

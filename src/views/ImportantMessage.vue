@@ -55,6 +55,7 @@
 </template>
 
 <script setup>
+import axios from 'axios'
 import { ref, onMounted, computed } from 'vue';
 import LoadingSpinner from "../components/LoadingSpinner.vue"
 
@@ -80,58 +81,47 @@ function editMessage(message, active, id){
   }
   
 }
-function deleteMessage(id){
+async function deleteMessage(id){
    loading.value = true;
-    fetch('https://football-backend-dbpassword.up.railway.app/api/messages/'+id, {
-    method: 'DELETE',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-}).then(response => response.json()).then(data => {
+    await axios.delete('https://football-backend-dbpassword.up.railway.app/api/messages/'+id)
     loading.value = false;
     messages.fill();
-})
 }
-function addMessage(){
+async function addMessage(){
   loading.value = true;
-    fetch('https://football-backend-dbpassword.up.railway.app/api/messages/', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        message: currentMessage.value.message,
-    })
-}).then(response => response.json()).then(data => {
+    try{
+          await axios.post('https://football-backend-dbpassword.up.railway.app/api/messages/', {
+          message: currentMessage.value.message,
+        })
+      }catch(err){
+        console.log('Could not post message: ', err)
+      }
     loading.value = false;
     currentMessage.value.message = "";
     addNew.value = false;
     messages.fill();
-})
-}
-function updateMessage(){
+  }
+
+async function updateMessage(){
     loading.value = true;
-    fetch('https://football-backend-dbpassword.up.railway.app/api/messages/'+ currentMessage.value.id, {
-    method: 'PATCH',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+    try{
+      await axios.patch('https://football-backend-dbpassword.up.railway.app/api/messages/'+ currentMessage.value.id, {
         message: currentMessage.value.message,
         active: currentMessage.value.active,
-    })
-}).then(response => response.json()).then(data => {
-    edit.value = false;
-    loading.value = false;
-    currentMessage.value = {
-      message:"",
-      active:false, 
-      id:undefined
+      })
+    }catch(error){
+      console.log(error)
     }
-    closeWarning.value = false;
-    messages.fill();
-})
-}
+      edit.value = false;
+      loading.value = false;
+      currentMessage.value = {
+        message:"",
+        active:false, 
+        id:undefined
+      }
+      closeWarning.value = false;
+      messages.fill();
+  }
 function displayDate(created, updated){
   return `Created at: ${created.slice(0, 10)}, Updated at: ${updated.slice(0, 10)}`
 }

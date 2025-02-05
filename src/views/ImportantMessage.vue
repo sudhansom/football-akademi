@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(message, index) in messages" :key="message">
+      <tr v-for="(message, index) in messages.messages" :key="message">
         <td>{{ index }}</td>
         <td :title="displayDate(message.createdAt, message.updatedAt)">{{ message.message }}</td>
         <td>{{ message.active? "active" : "disabled" }}</td>
@@ -58,28 +58,17 @@
 import { ref, onMounted } from 'vue';
 import LoadingSpinner from "../components/LoadingSpinner.vue"
 
-const messages = ref([])
+import { useMessageStore } from "../stores/MessageStore"
+
+const messages = useMessageStore()
 const edit = ref(false);
 const loading = ref(false);
 const currentMessage = ref({message:"",active:false, id:undefined});
 const addNew = ref(false);
 const warning = ref(false);
 
-function getMessages(){
-  fetch('https://football-backend-dbpassword.up.railway.app/api/messages/')
-  .then(response => response.json())
-  .then(data => {
-    const activeMessage = data.filter(m => m.active)
-    if(activeMessage.length > 1){
-      warning.value = true;
-    }
-    messages.value = data;
-  }).catch(err => {
-    console.log(err);   
-  })
-}
 onMounted(()=>{
-  getMessages();
+  messages.fill();
 })
 function editMessage(message, active, id){
   edit.value = true;
@@ -99,7 +88,7 @@ function deleteMessage(id){
     },
 }).then(response => response.json()).then(data => {
     loading.value = false;
-    getMessages();
+    messages.fill();
 })
 }
 function addMessage(){
@@ -116,7 +105,7 @@ function addMessage(){
     loading.value = false;
     currentMessage.value.message = "";
     addNew.value = false;
-    getMessages();
+    messages.fill();
 })
 }
 function updateMessage(){
@@ -138,7 +127,7 @@ function updateMessage(){
       active:false, 
       id:undefined
     }
-    getMessages();
+    messages.fill();
 })
 }
 function displayDate(created, updated){

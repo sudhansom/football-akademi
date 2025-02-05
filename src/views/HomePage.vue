@@ -1,29 +1,24 @@
 <template>
   <div class="home-page">
-    <display-info v-if="msg" :message="msg" />
+    <display-info v-if="msg" :message="msg.message" />
     <ImageCaraousal />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import ImageCaraousal from "../components/ImageCaraousal.vue";
 import DisplayInfo from "../components/DisplayInfo.vue";
+import { useMessageStore } from "../stores/MessageStore"
 
-const msg = ref("")
-function getMessage(){
-  fetch('https://football-backend-dbpassword.up.railway.app/api/messages/')
-  .then(response => response.json())
-  .then(messages => {
-    const message = messages.find(m => m.active)
-    msg.value = message.message
-  }).catch(err => {
-  console.log(err);
-      
-  })
-}
+const messages = useMessageStore()
+
 onMounted(()=>{
-  getMessage();
+  messages.fill();
+})
+
+const msg = computed(()=>{
+  return messages. messages.find(m => m.active)
 })
 
 </script>

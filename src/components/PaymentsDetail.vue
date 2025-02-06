@@ -46,12 +46,15 @@ import LoadingSpinner from "../components/LoadingSpinner.vue"
 import eventBus from "../../eventBus.js"
 import { ref } from 'vue'
 
+import { useFetchData } from "../composables/useFetchData"
+
+const { data, error, loading, load } = useFetchData()
+
 defineProps({
     user: Object
 })
 const approve = ref(null)
 const payment = ref("")
-const loading = ref(false);
 const role = ref(localStorage.getItem("userRole"))
 
 
@@ -61,23 +64,19 @@ function updatePayment(key, value, obj){
         value
     }
 }
-function saveApproval(id){
-    loading.value = true;
-    fetch('https://football-backend-dbpassword.up.railway.app/api/users/payments/'+id, {
-    method: 'PATCH',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        month: approve.value.key,
-        value: payment.value
-    })
-}).then(response => response.json()).then(data => {
+
+async function saveApproval(id){
+    try{
+        await load('/users/payments/'+id, 'PATCH', {
+            month: approve.value.key,
+            value: payment.value
+        })
+    }catch(err){
+        console.log(err, error);
+    }
     approve.value = null;
     payment.value = "";
-    loading.value = false;
     eventBus.emit("userData")
-})
 }
 </script>
 

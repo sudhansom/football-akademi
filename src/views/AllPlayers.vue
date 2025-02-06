@@ -9,7 +9,7 @@
             <option value="helper">Helper</option>
         </select>
         <label for="">Rank:</label>
-        <select  class="border-1 border-gray-200 rounded-lg py-1 px-2 w-10" >
+        <select  class="border-1 border-gray-200 rounded-lg py-1 px-2 w-14" >
             <option value="">A</option>
             <option value="admin">B</option>
             <option value="player">C</option>

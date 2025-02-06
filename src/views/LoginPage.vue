@@ -22,33 +22,27 @@
 <script setup>
 import { ref } from "vue"
 import { useRouter } from 'vue-router';
+import { useFetchData } from '../composables/useFetchData'
+
+const { data, error, loading, load } = useFetchData()
 
 const email = ref("sulav@gmail.com")
 const password = ref("sulav")
 
 const router = useRouter();
-const data = ref([])
 
-function submitForm(){
-    fetch(`https://football-backend-dbpassword.up.railway.app/api/users/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+async function submitForm(){
+     await load(`/users/login/`, "POST",
+        {
             email:email.value,
             password:password.value
-        })    
-    })
-    .then(response => response.json())
-    .then(d => {
-        data.value = d.result;
-        localStorage.setItem("userId", d.result.id);
-        localStorage.setItem("userRole", d.result.role);
-        localStorage.setItem('token', d.token)
-        router.push(`/info/detail/${d.result.id}`);
-    }).catch(error=>console.log(error)
-    )
+        })
+    if(data.value) {
+        localStorage.setItem("userId", data.value.result.id);
+        localStorage.setItem("userRole", data.value.result.role);
+        localStorage.setItem('token', data.value.token)
+        router.push(`/info/detail/${data.value.result.id}`);
+    }
 }
 
 </script>

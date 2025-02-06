@@ -61,7 +61,7 @@ import LoadingSpinner from "../components/LoadingSpinner.vue"
 
 import { useMessageStore } from "../stores/MessageStore"
 
-import { useFetchData } from "../utils/useFetchData"
+import { useFetchData } from "../composables/useFetchData"
 
 const { data, error, loading, load} = useFetchData();
 

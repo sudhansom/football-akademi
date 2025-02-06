@@ -57,7 +57,7 @@
 import { ref } from "vue"
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import { useRouter } from 'vue-router';
-import { useFetchData } from '../utils/useFetchData'
+import { useFetchData } from '../composables/useFetchData'
 
 const router = useRouter();
 const { data, error, loading, load } = useFetchData();

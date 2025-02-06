@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios'
-import { useFetchData } from '../utils/useFetchData';
+import { useFetchData } from '../composables/useFetchData';
 
 const { data, error, loading, load } = useFetchData();
 

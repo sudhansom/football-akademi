@@ -1,4 +1,7 @@
 import { defineStore } from 'pinia';
+import { useFetchData } from '../composables/useFetchData';
+
+const { data, error, loading, load } = useFetchData();
 
 export const useEventStore = defineStore('events', {
   state: () => ({
@@ -9,23 +12,14 @@ export const useEventStore = defineStore('events', {
     async fill() {
       try {
         // Fetch data from the API
-        const response = await fetch('https://football-backend-dbpassword.up.railway.app/api/schedules');
+        const response = await load('/schedules');
 
-        // Check if the response is OK
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        // Parse the JSON data
-        const data = await response.json();
-
-        // Update the state
-        this.events = data; // Direct assignment (reactive)
-        console.log('Events loaded:', this.events);
+        this.events = data.value;
+        
 
         // Alternative: Use $patch if direct assignment doesn't work
         // this.$patch({ events: data });
-      } catch (error) {
+      } catch (err) {
         console.error('Failed to fetch events:', error);
       }
     },

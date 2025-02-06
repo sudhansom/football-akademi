@@ -1,4 +1,7 @@
 import { defineStore } from 'pinia';
+import { useFetchData } from '../composables/useFetchData';
+
+const { data, error, loading, load } = useFetchData()
 
 export const usePriceStore = defineStore('prices', {
   state: () => ({
@@ -9,20 +12,9 @@ export const usePriceStore = defineStore('prices', {
     async fill() {
       try {
         // Fetch data from the API
-        const response = await fetch('https://football-backend-dbpassword.up.railway.app/api/prices');
+        await load('/prices/');
 
-        // Check if the response is OK
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        // Parse the JSON data
-        const data = await response.json();
-
-        // Update the state
-        this.prices = data; // Direct assignment (reactive)
-        console.log('Prices loaded:', this.events);
-
+        this.prices = data.value;
         // Alternative: Use $patch if direct assignment doesn't work
         // this.$patch({ prices: data });
       } catch (error) {

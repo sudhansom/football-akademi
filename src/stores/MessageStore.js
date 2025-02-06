@@ -16,7 +16,7 @@ export const useMessageStore = defineStore('messages', {
         await load('/messages')
 
         // Update the state
-        this.messages = data; // Direct assignment (reactive)
+        this.messages = data.value; // Direct assignment (reactive)
 
         // Alternative: Use $patch if direct assignment doesn't work
         // this.$patch({ messages: data });

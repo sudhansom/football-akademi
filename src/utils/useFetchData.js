@@ -11,7 +11,8 @@ export let useFetchData = ()=>{
         try{
             response = await axios(url, {
                 method,
-                data:payload
+                data:payload,
+                headers: {...(payload instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {}),}
             })
         }catch(err){
             error.value = err;

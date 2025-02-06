@@ -57,9 +57,10 @@
 import { ref } from "vue"
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import { useRouter } from 'vue-router';
+import { useFetchData } from '../utils/useFetchData'
 
 const router = useRouter();
-
+const { data, error, loading, load } = useFetchData();
 const name = ref("")
 const dob = ref(null)
 const email = ref("")
@@ -74,10 +75,9 @@ const confirmPassword = ref("")
 
 const imagePreview = ref(null);
 
-const loading = ref(false);
 
 
-function submitForm(){
+async function submitForm(){
     loading.value = true;
     const form = new FormData();
     form.append("name", name.value);
@@ -90,24 +90,19 @@ function submitForm(){
     form.append("image", image.value, name.value);
 
 
-  // Submit the form data to the server
-//   http://localhost:5000/api/users/
-// https://football-backend-dbpassword.up.railway.app/api/users
-  fetch("https://football-backend-dbpassword.up.railway.app/api/users/", {
-    method: 'POST',
-    body:form
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log("Success:", data);
-        loading.value = false;
-        router.push('/login')
-    })
-    .catch((error) => {
-      console.log("Error: new error", error);
-        loading.value = false;
+    // Submit the form data to the server
+    //   http://localhost:5000/api/users/
+    // https://football-backend-dbpassword.up.railway.app/api/users
+    try{
+        console.log(form);
+        await load("/users/", "POST", form)
 
-    });
+    }catch(err){
+        console.log('Not added from frontend...',err)
+    }
+    
+    router.push('/login')
+
 }
 
 // Function to trigger the file input click event

@@ -1,5 +1,8 @@
 import { defineStore } from 'pinia';
 import axios from 'axios'
+import { useFetchData } from '../utils/useFetchData';
+
+const { data, error, loading, load } = useFetchData();
 
 export const useMessageStore = defineStore('messages', {
   state: () => ({
@@ -10,17 +13,14 @@ export const useMessageStore = defineStore('messages', {
     async fill() {
       try {
         // Fetch data from the API
-        const response = await axios.get('/messages');
-
-        const data = response.data;
+        await load('/messages')
 
         // Update the state
         this.messages = data; // Direct assignment (reactive)
-        console.log('Messages loaded:', this.messages);
 
         // Alternative: Use $patch if direct assignment doesn't work
         // this.$patch({ messages: data });
-      } catch (error) {
+      } catch (err) {
         console.error('Failed to fetch messages:', error);
       }
     },

@@ -61,10 +61,13 @@ import LoadingSpinner from "../components/LoadingSpinner.vue"
 
 import { useMessageStore } from "../stores/MessageStore"
 
+import { useFetchData } from "../utils/useFetchData"
+
+const { data, error, loading, load} = useFetchData();
+
 
 const messages = useMessageStore()
 const edit = ref(false);
-const loading = ref(false);
 const currentMessage = ref({message:"",active:false, id:undefined});
 const addNew = ref(false);
 const closeWarning = ref(false);
@@ -82,38 +85,25 @@ function editMessage(message, active, id){
   
 }
 async function deleteMessage(id){
-   loading.value = true;
-    await axios.delete('/messages/'+id)
-    loading.value = false;
+    await load('/messages/'+id, 'DELETE')
     messages.fill();
 }
 async function addMessage(){
-  loading.value = true;
-    try{
-          await axios.post('/messages/', {
-          message: currentMessage.value.message,
-        })
-      }catch(err){
-        console.log('Could not post message: ', err)
-      }
-    loading.value = false;
+    await load('/messages/', "POST", {
+    message: currentMessage.value.message,})
+     
     currentMessage.value.message = "";
     addNew.value = false;
     messages.fill();
   }
 
 async function updateMessage(){
-    loading.value = true;
-    try{
-      await axios.patch('/messages/'+ currentMessage.value.id, {
+      await load('/messages/'+ currentMessage.value.id,'patch', {
         message: currentMessage.value.message,
         active: currentMessage.value.active,
       })
-    }catch(error){
-      console.log(error)
-    }
+   
       edit.value = false;
-      loading.value = false;
       currentMessage.value = {
         message:"",
         active:false, 

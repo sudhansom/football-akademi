@@ -10,9 +10,9 @@
         <tbody>
             <tr >
                 <td v-for="[m,v] in Object.entries(user.payments)" :key="m" @click="updatePayment(m,v, user.payments)" class="hover:bg-gray-100 cursor-pointer">
-                    <span title="paid" v-if="v==='paid'"><i class="fa-solid fa-check text-green-500 hover:text-green-300 cursor-pointer"></i></span>
-                    <span title="request for approval" v-if="v==='pending'"><i class="fa-solid fa-check text-yellow-500 hover:text-yellow-300 cursor-pointer"></i></span>
-                    <span title="not-paid" v-if="v==='not-paid'"><i class="fa-solid fa-xmark text-red-500 hover:text-red-300 cursor-pointer"></i></span>
+                    <span class="flex justify-center align-center" title="paid" v-if="v==='paid'"><i class="fa-solid fa-check text-green-500 hover:text-green-300 cursor-pointer"></i></span>
+                    <span class="flex justify-center align-center" title="request for approval" v-if="v==='pending'"><i class="fa-solid fa-check text-yellow-500 hover:text-yellow-300 cursor-pointer"></i></span>
+                    <span class="flex justify-center align-center" title="not-paid" v-if="v==='not-paid'"><i class="fa-solid fa-xmark text-red-500 hover:text-red-300 cursor-pointer"></i></span>
                     <span v-else></span>
                 </td>
             </tr>

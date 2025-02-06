@@ -42,51 +42,34 @@
 import LoadingSpinner from "../components/LoadingSpinner.vue"
 import eventBus from "../../eventBus.js"
 import { ref } from 'vue'
+import { useFetchData } from "../composables/useFetchData"
+
+const { data, error, loading, load } = useFetchData()
+
 const add = ref(false)
 const edit = ref(false)
 const skill = ref("")
-const loading = ref(false)
 const index = ref(null)
 
 const props = defineProps({
     user: Object
 })
 
-function updateSkills(id){
-    loading.value = true;
-    fetch('https://football-backend-dbpassword.up.railway.app/api/users/skills/'+id, {
-    method: 'PATCH',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+async function updateSkills(id){
+    await load('/users/skills/'+id, 'PATCH', {
         skill: index.value!=null? props.user.skills[index.value]: skill.value,
         index: index.value
     })
-}).then(response => response.json()).then(data => {
     edit.value = false;
     add.value = false;
-    loading.value = false;
     skill.value = "";
     index.value = null;
     eventBus.emit("userData")
-})
 }
 
-function deleteSkill(id, ind){
-    loading.value = true;
-    fetch('https://football-backend-dbpassword.up.railway.app/api/users/skills/delete/'+id, {
-    method: 'PATCH',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        index: ind
-    })
-}).then(response => response.json()).then(data => {
-    loading.value = false;
-    eventBus.emit("userData")
-})
+async function deleteSkill(id, ind){
+    await load('/users/skills/delete/'+id, 'PATCH', {index: ind});
+    eventBus.emit("userData");
 }
 
 </script>

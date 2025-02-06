@@ -22,21 +22,20 @@ import PersonalMeasurement from "../components/PersonalMeasurement.vue"
 import eventBus from "../../eventBus.js"
 
 import { useRoute } from 'vue-router';
+import { useFetchData } from "../composables/useFetchData"
+
+const { data, error, loading, load } = useFetchData()
 
 const route = useRoute();
 const userId = route.params.id; // Get dynamic ID from URL
 const user = ref(null)
 
-function getData(){
-    fetch('https://football-backend-dbpassword.up.railway.app/api/users/'+ userId)
-    .then(response => response.json())
-    .then(data => {
-        user.value = data
-    })
+async function getData(){
+    await load('/users/'+ userId)
+    user.value = data.value;
 }
 onMounted(()=>{
     getData();
-    eventBus.on("userData", getData);
 })
 </script>
 

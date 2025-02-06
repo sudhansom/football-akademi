@@ -36,6 +36,7 @@ async function getData(){
 }
 onMounted(()=>{
     getData();
+    eventBus.on("userData", getData);
 })
 </script>
 

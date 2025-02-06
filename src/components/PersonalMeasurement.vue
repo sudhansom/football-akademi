@@ -33,30 +33,24 @@ import { ref } from "vue"
 import LoadingSpinner from "../components/LoadingSpinner.vue"
 import eventBus from "../../eventBus.js"
 
+import { useFetchData } from "../composables/useFetchData"
+
+const { data, error, loading, load } = useFetchData()
+
 defineProps({
     user: Object
 })
 const edit = ref(false)
 const height = ref(0)
 const weight = ref(0)
-const loading = ref(false)
 
-function saveHeightWeight(id){
-    loading.value = true;
-    fetch('https://football-backend-dbpassword.up.railway.app/api/users/measures/'+id, {
-    method: 'PATCH',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        height: height.value,
-        weight: weight.value
+async function saveHeightWeight(id){
+    await load('/users/measures/'+id, "PATCH", {
+      height: height.value,
+      weight: weight.value
     })
-}).then(response => response.json()).then(data => {
     edit.value = false;
-    loading.value = false;
     eventBus.emit("userData")
-})
 }
 
 </script>

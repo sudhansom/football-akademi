@@ -40,7 +40,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-const users = ref([])
+import { useUserStore } from "../stores/UserStore"
 const token = ref(localStorage.getItem("token"))
 const role = ref(localStorage.getItem("userRole"));
 const userId = ref(localStorage.getItem("userId"));
@@ -49,24 +49,13 @@ const type = ref(null)
 const age = ref(0)
 
 
-
+const users = useUserStore();
 
 //  http://localhost:5000/api/users/
 // https://football-backend-dbpassword.up.railway.app/api/users
-function getData(){
-    fetch('https://football-backend-dbpassword.up.railway.app/api/users/', {
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " +token.value
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
-        users.value = data
-    })
-}
+
 onMounted(()=>{
-    getData();
+    users.fill();
 })
 
 function gotoLink (id){
@@ -78,11 +67,11 @@ function gotoLink (id){
 }
 const filteredUsers = computed(()=>{
     if(searchName.value){
-        return users.value.filter(u => u.name.toLowerCase().includes(searchName.value.toLowerCase()))
+        return users.users.filter(u => u.name.toLowerCase().includes(searchName.value.toLowerCase()))
     }else if(type.value){
-        return users.value.filter(u => u.role.includes(type.value))
+        return users.users.filter(u => u.role.includes(type.value))
     }else if(age.value){
-        return users.value.filter(u => {
+        return users.users.filter(u => {
             let birthDate = new Date(u.dob);  
             let today = new Date();  
 
@@ -96,7 +85,7 @@ const filteredUsers = computed(()=>{
             return actualAge == age.value;
         })
     }else {
-        return users.value
+        return users.users
     }
 })
 </script>

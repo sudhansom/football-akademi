@@ -1,5 +1,5 @@
 <template>
-    <div class="relative bg-stone-100 rounded-lg p-3">
+    <div class="relative bg-stone-100 rounded-lg p-3 border border-stone-200">
         <h3 class="font-bold text-xl text-center mb-1">Our Programs</h3>
         <div>
             <div v-if="events.events?.length" class="flex flex-col">

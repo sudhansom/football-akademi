@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-stone-100 rounded-lg p-3 text-center">
+  <div class="bg-stone-100 rounded-lg p-3 text-center border border-stone-200">
     <h3 class="font-bold text-xl mb-1">Prices</h3>
     <table v-if="prices.prices.length" class="">
         <thead>

@@ -50,8 +50,8 @@ async function submitForm(){
 <style scoped>
 .registration {
     min-height: 85dvh;
-    max-width: 300px;
-    margin: auto;
+    max-width: 350px;
+    margin: 48px auto;
 }
 form {
     display: flex;

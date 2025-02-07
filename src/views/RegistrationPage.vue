@@ -129,7 +129,7 @@ function handleFileChange(event) {
 <style scoped>
 .registration {
     min-height: 85dvh;
-    max-width: 300px;
+    max-width: 500px;
     margin: auto;
 }
 form {

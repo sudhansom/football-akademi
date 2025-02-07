@@ -17,6 +17,7 @@ defineProps({
     color: white;
     text-align: center;
     padding: 6px;
+    margin-inline: -12px;
 }
 
 .information h3 {

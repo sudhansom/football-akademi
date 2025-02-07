@@ -17,9 +17,9 @@
         <td :title="displayDate(message.createdAt, message.updatedAt)">{{ message.message }}</td>
         <td>{{ message.active? "active" : "disabled" }}</td>
         <td>
-          <span>
-              <span title="click to delete" @click="deleteMessage(message.id)" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block ml-10"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
-              <span title="click to edit" @click="editMessage(message.message, message.active, message.id)" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block ml-6"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
+          <span class="flex justify-between items-center gap-1">
+              <span title="click to delete" @click="deleteMessage(message.id)" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block flex justify-center items-center"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
+              <span title="click to edit" @click="editMessage(message.message, message.active, message.id)" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block flex justify-center items-center"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
           </span>
         </td>
       </tr>

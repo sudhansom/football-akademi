@@ -7,7 +7,7 @@
         </router-link>
    </section>
    <section class="ayoub">
-    <h2 class="text-xl font-bold">Ayoub Sørensen, Fodbold Akademi</h2>
+    <h2 class="hidden md:block text-xl font-bold">Ayoub Sørensen, Fodbold Akademi</h2>
    </section>
    <section class="flex space-x-4 items-center">
     <router-link to="/info" class="each-tab">Information</router-link>

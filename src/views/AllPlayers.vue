@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-between items-center border-1 border-gray-200 rounded-lg mb-2 p-1">
+    <div class="flex justify-between items-center border-1 border-gray-200 rounded-lg mb-2 p-1 overflow-auto">
         <input v-model="searchName" class="border-1 border-gray-200 rounded-lg py-1 px-2 w-36" type="text" placeholder="Search by Name">
         <label for="">Role:</label>
         <select v-model="type" class="border-1 border-gray-200 rounded-lg py-1 px-2 w-18" >
@@ -18,7 +18,8 @@
         <label for="">Age:</label>
         <input v-model="age" class="border-1 border-gray-200 rounded-lg p-1 w-12" type="number" placeholder="Age">
     </div>
-    <table>
+    <div class="overflow-auto">
+        <table>
         <thead>
             <tr>
                 <th></th>
@@ -36,6 +37,7 @@
             </tr>
         </tbody>
     </table>
+    </div>
 </template>
 
 <script setup>

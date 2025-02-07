@@ -31,7 +31,11 @@
         <tbody>
             <tr v-for="(user,index) in filteredUsers" :key="user.id">
                 <td>{{ index + 1 }}</td>
-                <td :title="(role==='admin' || user.id === userId)?'click to see detail':'Need to be admin to see the detail'"><router-link :to="gotoLink(user.id)"><span class="font-bold hover:text-gray-500">{{ user.name }}</span></router-link></td>
+                <td :title="(role==='admin' || user.id === userId)?'click to see detail':'Need to be admin to see the detail'">
+                    <router-link :to="gotoLink(user.id)">
+                        <span class="font-bold hover:text-blue-700" :class="checkStatus(user.payments)">
+                            {{ user.name }}
+                        </span></router-link></td>
                 <td>{{user.address}}</td>
                 <td>{{ user.dob.slice(0, 10)}}</td>
             </tr>
@@ -90,6 +94,13 @@ const filteredUsers = computed(()=>{
         return users.users
     }
 })
+
+const checkStatus = (payments) => {
+    let pending = Object.values(payments).some(value => value === 'pending');
+    let notPaid = Object.values(payments).some(value => value === 'not-paid');
+
+    return pending? 'text-orange-500': notPaid?'text-red-500':''
+}
 </script>
 
 <style scoped>

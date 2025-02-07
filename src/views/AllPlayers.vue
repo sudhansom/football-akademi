@@ -64,7 +64,7 @@ function gotoLink (id){
     if(role.value==='admin' || userId.value===id){
         return '/info/detail/' + id
     }else {
-        return "/login"
+        return ""
     }
 }
 const filteredUsers = computed(()=>{

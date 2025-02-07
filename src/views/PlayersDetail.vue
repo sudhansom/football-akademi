@@ -59,7 +59,7 @@ img {
 
 .person {
     border: 1px solid gray;
-    padding: 12px;
+    padding: 0 12px;
     border-radius: 12px;
     margin: 24px;
 }

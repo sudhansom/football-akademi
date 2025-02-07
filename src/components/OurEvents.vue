@@ -4,13 +4,19 @@
         <div>
             <div v-if="events.events?.length" class="flex flex-col">
                 <span class="hover:bg-gray-300 p-1 flex justify-center" v-for="event in events.events" :key="event">{{event.day}} - {{event.slot}}
-                <span>
+                <span v-if="role==='admin'">
                     <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-10">
                         <i class="fa-solid fa-trash hover:text-red-500"></i>
                     </span> 
                     <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6">
                         <i class="fa-solid fa-pen-to-square hover:text-green-500"></i>
                     </span>
+                    <span v-if="totalAbsence(event)" :title="totalAbsence(event) + ' player not coming'" class="text-red-500 ml-12">
+                        {{ totalAbsence(event) }}
+                    </span>
+                </span>
+                <span @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-10" :class="isParticipating(event)?'text-green-500':'text-red-500'">
+                    <i class="fa-solid fa-person-running"></i>
                 </span>
                 </span>
                 <div v-if="addNew"  class="flex justify-center border-1 border-gray-300 rounded-lg p-2 gap-6">
@@ -52,19 +58,32 @@
             </div>
         </div>
     </div>
+    <div v-if="loading" class="absolute flex justify-center items-center bottom-0 top-0 right-0 left-0">
+        <loading-spinner />
+    </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import { useEventStore } from '../stores/EventStore'
+import { useFetchData } from '../composables/useFetchData'
+
+const { data, error, loading, load } = useFetchData()
 
 let editModal = ref(false)
 let addNew = ref(false)
 let day = ref("Sunday")
 let newday = ref("")
 let time = ref("15:00 - 17:00")
+
 const events = useEventStore()
+
+const role = ref(localStorage.getItem("userRole"))
+const token = ref(localStorage.getItem("token"))
+const userId = ref(localStorage.getItem("userId"))
+
+
 
 function toggleEdit(event, id, d){
     newday.value = d
@@ -78,6 +97,23 @@ function addNewEvent(){
 onMounted(()=>{
    events.fill();
 })
+
+async function attendEvent(event){
+    try{
+        await load('/schedules/'+event.id , "PATCH", {userId:userId.value, going: !event.absence.includes(userId.value)});
+    }catch(err){
+        console.log(err, error);
+    }
+    events.fill(); 
+}
+
+function isParticipating(event){
+    return event.absence.includes(userId.value)
+}
+
+function totalAbsence(event){
+    return event.absence.length
+}
 </script>
 
 <style scoped>

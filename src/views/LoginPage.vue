@@ -24,6 +24,10 @@ import { ref } from "vue"
 import { useRouter } from 'vue-router';
 import { useFetchData } from '../composables/useFetchData'
 
+import { useUserStore } from "../stores/UserStore"
+
+const users = useUserStore();
+
 const { data, error, loading, load } = useFetchData()
 
 const email = ref("sulav@gmail.com")
@@ -38,6 +42,8 @@ async function submitForm(){
             password:password.value
         })
     if(data.value) {
+        users.fillCurrentUser(data.value.result.id);
+        users.setToken(data.value.token);
         localStorage.setItem("userId", data.value.result.id);
         localStorage.setItem("userRole", data.value.result.role);
         localStorage.setItem('token', data.value.token)

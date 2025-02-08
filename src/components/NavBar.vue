@@ -11,7 +11,7 @@
    </section>
    <section class="flex space-x-4 items-center">
     <router-link to="/info" class="each-tab">Information</router-link>
-    <span v-if="loggedIn" @click="logoutUser" class="each-tab">LogOut</span>
+    <span v-if="users.token" @click="logoutUser" class="each-tab">LogOut</span>
     <router-link v-else  to="/login" class="each-tab">SignIn</router-link>
 
    </section>
@@ -20,22 +20,21 @@
 
 <script setup>
 import MenuBar from "./MenuBar.vue"
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '../stores/UserStore'
 
-const loggedIn = ref(localStorage.getItem('userRole'))
+const users = useUserStore()
 
 const router = useRouter()
 
 function logoutUser(){
-  console.log('hellooooo')
   localStorage.removeItem("userRole")
   localStorage.removeItem("userId")
   localStorage.removeItem("token")
-  loggedIn.value = undefined
+  users.setToken();
   router.push("/");
-
 }
+
 </script>
 
 <style scoped>

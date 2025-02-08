@@ -108,7 +108,7 @@ async function attendEvent(event){
 }
 
 function isParticipating(event){
-    return event.absence.includes(userId.value)
+    return !event.absence.includes(userId.value)
 }
 
 function totalAbsence(event){

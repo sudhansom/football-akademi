@@ -68,8 +68,21 @@ async function updateSkills(id){
 }
 
 async function deleteSkill(id, ind){
-    await load('/users/skills/delete/'+id, 'PATCH', {index: ind});
+    await load('/users/skills/delete/'+id, 'PATCH', JSON.stringify({index: ind}));
+    // fetch('http://localhost:5000/api/users/skills/delete/'+id,{
+    //     method: 'PATCH',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2E1MDllNzViMDM4OWQ3OWNkYWY3NzAiLCJ1c2VyUm9sZSI6InBsYXllciIsImlhdCI6MTczOTAxNDI1MiwiZXhwIjoxNzM5MDE3ODUyfQ.oCvjsysGJ_BjEOx-_bMZfFURkOcvwLhklHkHfoQFkYU'
+    //     },
+    //     body: JSON.stringify({
+    //         index:ind
+    //     })
+    // }).then(response => response.json()).then(data => {
+    //     console.log(data, 'here...delete.....')
+    // })
     eventBus.emit("userData");
+
 }
 
 </script>

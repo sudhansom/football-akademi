@@ -13,9 +13,9 @@
     </thead>
     <tbody>
       <tr v-for="(message, index) in messages.messages" :key="message">
-        <td>{{ index }}</td>
-        <td :title="displayDate(message.createdAt, message.updatedAt)">{{ message.message }}</td>
-        <td>{{ message.active? "active" : "disabled" }}</td>
+        <td>{{ index + 1 }}</td>
+        <td :title="displayDate(message.createdAt, message.updatedAt)" :class="message.active?'font-bold text-green-500':''">{{ message.message }}</td>
+        <td :class="message.active?'font-bold text-green-500':''">{{ message.active? "active" : "disabled" }}</td>
         <td>
           <span class="flex justify-between items-center gap-1">
               <span title="click to delete" @click="deleteMessage(message.id)" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block flex justify-center items-center"><i class="fa-solid fa-trash hover:text-red-500"></i></span>

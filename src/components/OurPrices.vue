@@ -33,8 +33,13 @@
                     </div>
                     
                 </td>
-                <td v-if="role" @click="updateSchedule(p.times)">
-                    <span v-if="p.times===schedule" class="" title="paid" ><i class="fa-solid fa-check text-green-500 hover:text-green-300 cursor-pointer"></i></span>
+                <td v-if="role" @click="updateSchedule(p.times)" class="relative">
+                    <span v-if="p.times===schedule"  title="paid" >
+                        <i class="fa-solid fa-check text-green-500 hover:text-green-300 cursor-pointer"></i>
+                        <div v-if="loading" class="absolute bottom-0 right-0 left-0 top-0">
+                            <loading-spinner></loading-spinner>
+                        </div>
+                    </span>
                 </td>
             </tr>
            
@@ -72,6 +77,7 @@ import { useFetchData } from "../composables/useFetchData"
 const { data, error, loading, load } = useFetchData()
 
 const role = ref(localStorage.getItem("userRole"))
+const id = ref(localStorage.getItem("userId"))
 
 
 const prices = usePriceStore()
@@ -99,7 +105,9 @@ async function updateSchedule(times){
         console.log('already same time', times, users.currentUser?.schedule)
         return
     }
-    await load('/users/schedule/'+users.currentUser?.id, "PATCH", {schedule: times})
+    console.log(id.value);
+    await load('/users/schedule/'+id.value, "PATCH", {schedule: times})
+    users.fillCurrentUser(id.value);
 }
 onMounted(()=>{
    prices.fill() 

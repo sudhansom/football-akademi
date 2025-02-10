@@ -9,6 +9,9 @@
                 <th v-if="role==='admin'">
                     <span class="m-1">Actions</span>
                 </th>
+                <th v-if="role==='admin'">
+                    <span>Joined</span>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +32,9 @@
                         <span title="Save the changes" @click="savePrice" class="cursor-pointer mr-2"><i class="fa-solid fa-floppy-disk text-green-300 hover:text-green-600"></i> </span><span title="Cancel editing" @click="editId=false" class="cursor-pointer"> <i class="fa-solid fa-xmark text-gray-400 hover:text-gray-700"></i></span>
                     </div>
                     
+                </td>
+                <td v-if="role==='admin'">
+                    {{ 'not yet' }}
                 </td>
             </tr>
            

@@ -33,8 +33,9 @@
                     </div>
                     
                 </td>
-                <td v-if="role==='admin'">
-                    {{ 'not yet' }}
+                <td v-if="role==='admin'" class="">
+                    <span v-if="p.times===schedule" class="" title="paid" ><i class="fa-solid fa-check text-green-500 hover:text-green-300 cursor-pointer"></i></span>
+                    <span v-else  class="" title="not-paid"><i class="fa-solid fa-xmark text-red-500 hover:text-red-300 cursor-pointer"></i></span>
                 </td>
             </tr>
            
@@ -62,13 +63,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue"
+import { ref, onMounted, computed } from "vue"
 import LoadingSpinner from "./LoadingSpinner.vue"
 import { usePriceStore } from "../stores/PriceStore"
+import { useUserStore } from "../stores/UserStore"
 
 const role = ref(localStorage.getItem("userRole"))
 
 const prices = usePriceStore()
+const users = useUserStore()
+
 
 let add = ref(false)
 const times = ref(null)
@@ -88,6 +92,9 @@ function savePrice(){
 }
 onMounted(()=>{
    prices.fill() 
+})
+const schedule = computed(()=>{
+    return users.currentUser.schedule;
 })
 </script>
 

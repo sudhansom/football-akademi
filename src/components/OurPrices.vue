@@ -9,7 +9,7 @@
                 <th v-if="role==='admin'">
                     <span class="m-1">Actions</span>
                 </th>
-                <th v-if="role==='admin'">
+                <th v-if="role">
                     <span>Joined</span>
                 </th>
             </tr>
@@ -33,9 +33,8 @@
                     </div>
                     
                 </td>
-                <td v-if="role==='admin'" class="">
+                <td v-if="role" @click="updateSchedule(p.times)">
                     <span v-if="p.times===schedule" class="" title="paid" ><i class="fa-solid fa-check text-green-500 hover:text-green-300 cursor-pointer"></i></span>
-                    <span v-else  class="" title="not-paid"><i class="fa-solid fa-xmark text-red-500 hover:text-red-300 cursor-pointer"></i></span>
                 </td>
             </tr>
            
@@ -68,7 +67,12 @@ import LoadingSpinner from "./LoadingSpinner.vue"
 import { usePriceStore } from "../stores/PriceStore"
 import { useUserStore } from "../stores/UserStore"
 
+import { useFetchData } from "../composables/useFetchData"
+
+const { data, error, loading, load } = useFetchData()
+
 const role = ref(localStorage.getItem("userRole"))
+
 
 const prices = usePriceStore()
 const users = useUserStore()
@@ -90,11 +94,18 @@ function editPrice(id){
 function savePrice(){
     editId.value = null
 }
+async function updateSchedule(times){
+    if(times === users.currentUser?.schedule){
+        console.log('already same time', times, users.currentUser?.schedule)
+        return
+    }
+    await load('/users/schedule/'+users.currentUser?.id, "PATCH", {schedule: times})
+}
 onMounted(()=>{
    prices.fill() 
 })
 const schedule = computed(()=>{
-    return users.currentUser.schedule;
+    return users.currentUser?.schedule || 1;
 })
 </script>
 

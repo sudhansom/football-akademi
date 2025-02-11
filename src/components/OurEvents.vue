@@ -3,7 +3,7 @@
         <h3 class="font-bold text-xl text-center mb-1">Our Programs</h3>
         <div>
             <div v-if="events.events?.length" class="flex flex-col">
-                <span class="hover:bg-gray-300 p-1 flex justify-center" v-for="event in events.events" :key="event">{{event.day}} - {{event.slot}}
+                <span class="hover:bg-gray-300 p-1 flex justify-center" v-for="(event,index) in events.events" :key="event">{{event.day}} - {{event.slot}}
                 <span v-if="role==='admin'">
                     <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-10">
                         <i class="fa-solid fa-trash hover:text-red-500"></i>
@@ -11,11 +11,11 @@
                     <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6">
                         <i class="fa-solid fa-pen-to-square hover:text-green-500"></i>
                     </span>
-                    <span v-if="totalAbsence(event)" :title="totalAbsence(event) + ' player not coming'" class="text-red-500 ml-12">
-                        {{ totalAbsence(event) }}
+                    <span v-if="totalParticipate(event)" :title="totalParticipate(event) + ' player not coming'" class="text-red-500 ml-12">
+                        {{ totalParticipate(event) }}
                     </span>
                 </span>
-                <span @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-10" :class="isParticipating(event)?'text-green-500':'text-red-500'">
+                <span @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-10" :class="isParticipating(event, index)?'text-green-500':'text-red-500'">
                     <i class="fa-solid fa-person-running"></i>
                 </span>
                 </span>
@@ -82,6 +82,7 @@ const events = useEventStore()
 const role = ref(localStorage.getItem("userRole"))
 const token = ref(localStorage.getItem("token"))
 const userId = ref(localStorage.getItem("userId"))
+const schedule = ref(localStorage.getItem("schedule"))
 
 
 
@@ -100,19 +101,19 @@ onMounted(()=>{
 
 async function attendEvent(event){
     try{
-        await load('/schedules/'+event.id , "PATCH", {userId:userId.value, going: !event.absence.includes(userId.value)});
+        await load('/schedules/'+event.id , "PATCH", {userId:userId.value, going: !event.participate.includes(userId.value)});
     }catch(err){
         console.log(err, error);
     }
     events.fill(); 
 }
 
-function isParticipating(event){
-    return !event.absence.includes(userId.value)
+function isParticipating(event, index){
+    return !event.participate.includes(userId.value);
 }
 
-function totalAbsence(event){
-    return event.absence.length
+function totalParticipate(event){
+    return event.participate.length
 }
 </script>
 

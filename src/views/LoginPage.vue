@@ -47,7 +47,9 @@ async function submitForm(){
         localStorage.setItem("userId", data.value.result.id);
         localStorage.setItem("userRole", data.value.result.role);
         localStorage.setItem('token', data.value.token)
-        router.push(`/info/detail/${data.value.result.id}`);
+        localStorage.setItem('schedule', data.value.schedule)
+        // router.push(`/info/detail/${data.value.result.id}`);
+        router.push(`/info/`);
     }
 }
 

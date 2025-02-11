@@ -109,7 +109,7 @@ async function attendEvent(event){
 }
 
 function isParticipating(event, index){
-    return !event.participate.includes(userId.value);
+    return event.participate.includes(userId.value);
 }
 
 function totalParticipate(event){

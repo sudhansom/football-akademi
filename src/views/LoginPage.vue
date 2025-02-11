@@ -43,7 +43,7 @@ async function submitForm(){
         })
     if(data.value) {
         console.log(data.value)
-        users.fillCurrentUser(data.value.result.id);
+        users.fillCurrentUser(data.value);
         users.setToken(data.value.token);
         localStorage.setItem("userId", data.value.result.id);
         localStorage.setItem("userRole", data.value.result.role);

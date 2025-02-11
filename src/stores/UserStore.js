@@ -23,17 +23,8 @@ export const useUserStore = defineStore('users', {
         console.error('Failed to fetch Users:', error);
       }
     },
-    async fillCurrentUser(id){
-        try {
-            // Fetch data from the API
-            await load('/users/'+id);
-    
-            this.currentUser = data.value;
-            // Alternative: Use $patch if direct assignment doesn't work
-            // this.$patch({ users: data });
-          } catch (error) {
-            console.error('Failed to fetch Users:', error);
-          }
+    async fillCurrentUser(user){
+            this.currentUser = user;
     },
     setToken(token){
         this.token = token;

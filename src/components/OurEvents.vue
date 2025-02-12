@@ -11,7 +11,7 @@
                     <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6">
                         <i class="fa-solid fa-pen-to-square hover:text-green-500"></i>
                     </span>
-                    <span v-if="totalParticipate(event)" :title="totalParticipate(event) + ' player not coming'" class="text-red-500 ml-12">
+                    <span v-if="totalParticipate(event)" :title="totalParticipate(event) + ' player not coming'" class="text-green-700 ml-12 cursor-pointer">
                         {{ totalParticipate(event) }}
                     </span>
                 </span>

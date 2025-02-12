@@ -24,7 +24,6 @@ export const useUserStore = defineStore('users', {
       }
     },
     fillCurrentUser(user){
-        console.log('userStore::',user);
         this.currentUser = user;
     },
     setToken(token){

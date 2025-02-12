@@ -101,13 +101,14 @@ function savePrice(){
     editId.value = null
 }
 async function updateSchedule(times){
-    if(times === users.currentUser?.schedule){
-        console.log('already same time', times, users.currentUser?.schedule)
+    console.log('I am here....', id.value);
+    
+    if(times === schedule.value){
+        console.log('already same times', times, users.currentUser?.schedule)
         return
     }
-    console.log(id.value);
-    await load('/users/schedule/'+id.value, "PATCH", {schedule: times})
-    users.fillCurrentUser(id.value);
+    await load('/users/schedule/'+ id.value, "PATCH", {schedule: times})
+    users.fillCurrentUser(data.value?.user);
 }
 onMounted(()=>{
    prices.fill() 

@@ -42,13 +42,12 @@ async function submitForm(){
             password:password.value
         })
     if(data.value) {
-        console.log(data.value)
-        users.fillCurrentUser(data.value);
+        users.fillCurrentUser(data.value.user);
         users.setToken(data.value.token);
-        localStorage.setItem("userId", data.value.result.id);
-        localStorage.setItem("userRole", data.value.result.role);
+        localStorage.setItem("userId", data.value.user.id);
+        localStorage.setItem("userRole", data.value.user.role);
         localStorage.setItem('token', data.value.token)
-        localStorage.setItem('schedule', data.value.result.schedule)
+        localStorage.setItem('schedule', data.value.user.schedule)
         // router.push(`/info/detail/${data.value.result.id}`);
         router.push(`/info/`);
     }

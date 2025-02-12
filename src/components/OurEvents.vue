@@ -64,12 +64,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import { useEventStore } from '../stores/EventStore'
 import { useFetchData } from '../composables/useFetchData'
-
+import { useUserStore } from "../stores/UserStore"
 const { data, error, loading, load } = useFetchData()
+
+const users = useUserStore()
 
 let editModal = ref(false)
 let addNew = ref(false)
@@ -82,7 +84,6 @@ const events = useEventStore()
 const role = ref(localStorage.getItem("userRole"))
 const token = ref(localStorage.getItem("token"))
 const userId = ref(localStorage.getItem("userId"))
-const schedule = ref(localStorage.getItem("schedule"))
 
 
 
@@ -115,6 +116,10 @@ function isParticipating(event, index){
 function totalParticipate(event){
     return event.participate.length
 }
+
+const schedule = computed(()=>{
+    return users.currentUser?.schedule || 1;
+})
 </script>
 
 <style scoped>

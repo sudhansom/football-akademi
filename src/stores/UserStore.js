@@ -23,8 +23,9 @@ export const useUserStore = defineStore('users', {
         console.error('Failed to fetch Users:', error);
       }
     },
-    async fillCurrentUser(user){
-            this.currentUser = user;
+    fillCurrentUser(user){
+        console.log('userStore::',user);
+        this.currentUser = user;
     },
     setToken(token){
         this.token = token;

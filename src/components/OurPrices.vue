@@ -108,7 +108,7 @@ async function updateSchedule(times){
         return
     }
     await load('/users/schedule/'+ id.value, "PATCH", {schedule: times})
-    users.fillCurrentUser(data.value?.user);
+    users.fillCurrentUser(data.value.user);
 }
 onMounted(()=>{
    prices.fill() 

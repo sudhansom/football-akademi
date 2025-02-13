@@ -11,11 +11,11 @@
                     <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6">
                         <i class="fa-solid fa-pen-to-square hover:text-green-500"></i>
                     </span>
-                    <span v-if="totalParticipate(event)" :title="totalParticipate(event) + ' player not coming'" class="text-green-700 ml-12 cursor-pointer">
+                    <span v-if="totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-12 cursor-pointer">
                         {{ totalParticipate(event) }}
                     </span>
                 </span>
-                <span @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-10" :class="isParticipating(event, index)?'text-green-500':'text-red-500'">
+                <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-10" :class="isParticipating(event, index)?'text-green-500':'text-red-500'">
                     <i class="fa-solid fa-person-running"></i>
                 </span>
                 </span>
@@ -101,13 +101,24 @@ onMounted(()=>{
 })
 
 async function attendEvent(event){
+    let totalSchedule = 0;
+    let going = false;
+    events.events.forEach(e => {
+        if(e.participate.includes(userId.value)){
+            totalSchedule += 1;
+        }
+    })
+    if(totalSchedule < schedule.value && !event.participate.includes(userId.value)){
+        going = true;
+    }
     try{
-        await load('/schedules/'+event.id , "PATCH", {userId:userId.value, going: !event.participate.includes(userId.value)});
+        await load('/schedules/'+event.id , "PATCH", {userId:userId.value, going});
     }catch(err){
         console.log(err, error);
     }
     events.fill(); 
 }
+
 
 function isParticipating(event, index){
     return event.participate.includes(userId.value);

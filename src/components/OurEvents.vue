@@ -129,7 +129,7 @@ function totalParticipate(event){
 }
 
 const schedule = computed(()=>{
-    return users.currentUser?.schedule || 1;
+    return users.currentUser?.schedule.count || 1;
 })
 </script>
 

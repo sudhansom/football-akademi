@@ -35,7 +35,7 @@
                 </td>
                 <td v-if="role" @click="updateSchedule(p.times)" class="relative">
                     <span v-if="p.times===schedule"  title="paid" >
-                        <i class="fa-solid fa-check text-green-500 hover:text-green-300 cursor-pointer"></i>
+                        <i class="fa-solid fa-check cursor-pointer" :class="isApproved()?'text-green-500 hover:text-green-800':'text-orange-500 hover:text-orange-800'"></i>
                         <div v-if="loading" class="absolute bottom-0 right-0 left-0 top-0">
                             <loading-spinner></loading-spinner>
                         </div>
@@ -107,15 +107,18 @@ async function updateSchedule(times){
         console.log('already same times', times, users.currentUser?.schedule)
         return
     }
-    await load('/users/schedule/'+ id.value, "PATCH", {schedule: times})
+    await load('/users/schedule/'+ id.value, "PATCH", {count: times, going: role.value==='admin'?'approved':'pending'})
     users.fillCurrentUser(data.value.user);
 }
 onMounted(()=>{
    prices.fill() 
 })
 const schedule = computed(()=>{
-    return users.currentUser?.schedule || 1;
+    return users.currentUser?.schedule.count || 1;
 })
+function isApproved(){
+    return users.currentUser?.schedule.going === 'approved'
+}
 </script>
 
 <style>

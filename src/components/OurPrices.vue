@@ -68,6 +68,8 @@
 
 <script setup>
 import { ref, onMounted, computed } from "vue"
+import eventBus from "../../eventBus.js"
+
 import LoadingSpinner from "./LoadingSpinner.vue"
 import { usePriceStore } from "../stores/PriceStore"
 import { useUserStore } from "../stores/UserStore"
@@ -108,7 +110,10 @@ async function updateSchedule(times){
         return
     }
     await load('/users/schedule/'+ id.value, "PATCH", {count: times, going: role.value==='admin'?'approved':'pending'})
-    users.fillCurrentUser(data.value.user);
+    await load('schedules/reset/'+id.value, "PATCH", {});
+    await load('/users/'+id.value);
+    users.fillCurrentUser(data.value);
+    eventBus.emit('reloadEvents')
 }
 onMounted(()=>{
    prices.fill() 

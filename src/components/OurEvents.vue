@@ -70,6 +70,7 @@ import { useEventStore } from '../stores/EventStore'
 import { useFetchData } from '../composables/useFetchData'
 import { useUserStore } from "../stores/UserStore"
 const { data, error, loading, load } = useFetchData()
+import eventBus from "../../eventBus.js"
 
 const users = useUserStore()
 
@@ -98,6 +99,7 @@ function addNewEvent(){
 }
 onMounted(()=>{
    events.fill();
+   eventBus.on('reloadEvents', events.fill)
 })
 
 async function attendEvent(event){

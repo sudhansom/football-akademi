@@ -9,6 +9,7 @@
   <div v-else class="person flex justify-center items-center">
     <loading-spinner></loading-spinner>
   </div>
+  <GeneralInfo v-if="currentUserId!==userId"/>
 </template>
 
 <script setup>
@@ -19,6 +20,7 @@ import SpecificTraining from "../components/SpecificTraining.vue";
 import PaymentsDetail from "../components/PaymentsDetail.vue"
 import PersonalDetail from "../components/PersonalDetail.vue"
 import PersonalMeasurement from "../components/PersonalMeasurement.vue"
+import GeneralInfo from "./GeneralInfo.vue"
 import eventBus from "../../eventBus.js"
 
 import { useRoute } from 'vue-router';
@@ -29,6 +31,7 @@ const { data, error, loading, load } = useFetchData()
 const route = useRoute();
 const userId = route.params.id; // Get dynamic ID from URL
 const user = ref(null)
+const currentUserId = localStorage.getItem("userId")
 
 async function getData(){
     await load('/users/'+ userId)

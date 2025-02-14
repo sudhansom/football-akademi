@@ -10,7 +10,7 @@
                     <span class="m-1">Actions</span>
                 </th>
                 <th v-if="role">
-                    <span>Joined</span>
+                    <span class="mx-1">Joined</span>
                 </th>
             </tr>
         </thead>
@@ -44,8 +44,8 @@
             </tr>
            
             <tr v-if="add">
-                <td><input v-model="times" type="text" class="bg-white text-center"></td>
-                <td><input v-model="rate" type="text" class="bg-white text-center"></td>
+                <td><input v-model="times" type="text" class="bg-white text-center w-full"></td>
+                <td><input v-model="rate" type="text" class="bg-white text-center w-full"></td>
                 <td>
                      <span v-if="add">
                         <span title="Save the changes" @click="add=false" class="cursor-pointer"><i class="fa-solid fa-floppy-disk text-green-300 hover:text-green-600"></i></span>

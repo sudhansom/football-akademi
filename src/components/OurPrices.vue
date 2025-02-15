@@ -103,8 +103,6 @@ function savePrice(){
     editId.value = null
 }
 async function updateSchedule(times){
-    console.log('I am here....', id.value);
-    
     if(times === schedule.value){
         console.log('already same times', times, users.currentUser?.schedule)
         return

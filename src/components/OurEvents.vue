@@ -106,6 +106,7 @@ onMounted(()=>{
 })
 
 async function attendEvent(event){
+    // updates the participation[] in the schedule 
     let totalSchedule = 0;
     let going = false;
     events.events.forEach(e => {
@@ -114,7 +115,7 @@ async function attendEvent(event){
         }
     })
     if(totalSchedule < schedule.value && !event.participate.includes(userId.value)){
-        going = true;
+        going = true; // just to update the add or remove the userId in participation[]
     }
     try{
         await load('/schedules/'+event.id , "PATCH", {userId:userId.value, going});

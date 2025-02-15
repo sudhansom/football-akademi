@@ -1,8 +1,8 @@
 <template>
   <h2 class="font-bold text-2xl text-center mb-2">{{info ?? 'General Information'}}</h2>
-  <our-events :id="userId" />
+  <our-events :id="userId" :sameUser="route.params.id ? true: false " />
   <hr class="m-3 text-gray-200">
-  <our-prices :id="userId"></our-prices>
+  <our-prices :id="userId" :sameUser="route.params.id ? true: false "></our-prices>
 </template>
 
 <script setup>

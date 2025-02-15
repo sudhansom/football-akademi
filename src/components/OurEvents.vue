@@ -76,6 +76,7 @@ import eventBus from "../../eventBus.js"
 
 const props = defineProps({
     id: String,
+    sameUser: Boolean,
 })
 
 const { data, error, loading, load } = useFetchData()
@@ -114,15 +115,15 @@ async function attendEvent(event){
     let totalSchedule = 0;
     let going = false;
     events.events.forEach(e => {
-        if(e.participate.includes(props.id.value)){
+        if(e.participate.includes(props.id)){
             totalSchedule += 1;
         }
     })
-    if(totalSchedule < schedule.value && !event.participate.includes(props.id.value)){
+    if(totalSchedule < schedule.value && !event.participate.includes(props.id)){
         going = true; // just to update the add or remove the userId in participation[]
     }
     try{
-        await load('/schedules/'+event.id , "PATCH", {userId:userId.value, going});
+        await load('/schedules/'+event.id , "PATCH", {userId:props.id, going});
     }catch(err){
         console.log(err, error);
     }
@@ -131,7 +132,7 @@ async function attendEvent(event){
 
 
 function isParticipating(event, index){
-    return event.participate.includes(props.id.value);
+    return event.participate.includes(props.id);
 }
 
 function totalParticipate(event){

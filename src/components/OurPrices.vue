@@ -77,6 +77,7 @@ import { useFetchData } from "../composables/useFetchData"
 
 const props = defineProps({
     id: String,
+    sameUser: Boolean,
 })
 
 const { data, error, loading, load } = useFetchData()
@@ -108,10 +109,10 @@ async function updateSchedule(times){
         console.log('already same times', times, users.currentUser?.schedule)
         return
     }
-    await load('/users/schedule/'+ props.id.value, "PATCH", {count: times, going: role.value==='admin'?'approved':'pending'})
-    await load('schedules/reset/'+props.id.value, "PATCH", {});
-    await load('/users/'+ props.id.value);
-    users.fillCurrentUser(data.value);
+    await load('/users/schedule/'+ props.id, "PATCH", {count: times, going: role.value==='admin'?'approved':'pending'})
+    await load('schedules/reset/'+props.id, "PATCH", {});
+    await load('/users/'+ props.id);
+    users.fillCurrentUser(data);
     eventBus.emit('reloadEvents')
 }
 onMounted(()=>{

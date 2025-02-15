@@ -140,7 +140,11 @@ function totalParticipate(event){
 }
 
 const schedule = computed(()=>{
-    return users.selectedUser?.schedule.count || 1;
+    if(props.sameUser){
+        return users.currentUser?.schedule.count || 1;
+    }else{
+        return users.selectedUser?.schedule.count || 1;
+    }
 })
 </script>
 

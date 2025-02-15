@@ -119,10 +119,18 @@ onMounted(()=>{
    prices.fill() 
 })
 const schedule = computed(()=>{
-    return users.currentUser?.schedule.count || 1;
+    if(props.sameUser){
+        return users.currentUser?.schedule.count || 1;
+    }else{
+        return users.selectedUser?.schedule.count || 1;
+    }
 })
 function isApproved(){
-    return users.currentUser?.schedule.going === 'approved'
+    if(props.sameUser){
+        return users.currentUser?.schedule.going === 'approved'
+    }else{
+        return users.selectedUser?.schedule.going === 'approved'
+    }
 }
 </script>
 

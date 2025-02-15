@@ -73,14 +73,15 @@ import eventBus from "../../eventBus.js"
 import LoadingSpinner from "./LoadingSpinner.vue"
 import { usePriceStore } from "../stores/PriceStore"
 import { useUserStore } from "../stores/UserStore"
-
 import { useFetchData } from "../composables/useFetchData"
+
+const props = defineProps({
+    id: String,
+})
 
 const { data, error, loading, load } = useFetchData()
 
 const role = ref(localStorage.getItem("userRole"))
-const id = ref(localStorage.getItem("userId"))
-
 
 const prices = usePriceStore()
 const users = useUserStore()
@@ -107,9 +108,9 @@ async function updateSchedule(times){
         console.log('already same times', times, users.currentUser?.schedule)
         return
     }
-    await load('/users/schedule/'+ id.value, "PATCH", {count: times, going: role.value==='admin'?'approved':'pending'})
-    await load('schedules/reset/'+id.value, "PATCH", {});
-    await load('/users/'+id.value);
+    await load('/users/schedule/'+ props.id.value, "PATCH", {count: times, going: role.value==='admin'?'approved':'pending'})
+    await load('schedules/reset/'+props.id.value, "PATCH", {});
+    await load('/users/'+ props.id.value);
     users.fillCurrentUser(data.value);
     eventBus.emit('reloadEvents')
 }

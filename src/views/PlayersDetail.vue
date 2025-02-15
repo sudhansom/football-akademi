@@ -9,7 +9,7 @@
   <div v-else class="person flex justify-center items-center">
     <loading-spinner></loading-spinner>
   </div>
-  <GeneralInfo v-if="currentUserId!==userId"/>
+  <GeneralInfo v-if="currentUserId!==userId" info="Schedule details: "/>
 </template>
 
 <script setup>

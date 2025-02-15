@@ -7,6 +7,7 @@ export const useUserStore = defineStore('users', {
   state: () => ({
     users: [], // Initial state
     currentUser: null,
+    selectedUser: null,
     token: localStorage.getItem('token') || '',
   }),
 
@@ -22,6 +23,9 @@ export const useUserStore = defineStore('users', {
       } catch (error) {
         console.error('Failed to fetch Users:', error);
       }
+    },
+    fillSelectedUser(user){
+      this.selectedUser = user;
     },
     fillCurrentUser(user){
         this.currentUser = user;

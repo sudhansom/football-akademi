@@ -72,10 +72,16 @@ import LoadingSpinner from '../components/LoadingSpinner.vue'
 import { useEventStore } from '../stores/EventStore'
 import { useFetchData } from '../composables/useFetchData'
 import { useUserStore } from "../stores/UserStore"
-const { data, error, loading, load } = useFetchData()
 import eventBus from "../../eventBus.js"
 
+const props = defineProps({
+    id: String,
+})
+
+const { data, error, loading, load } = useFetchData()
+
 const users = useUserStore()
+
 
 let editModal = ref(false)
 let addNew = ref(false)
@@ -87,8 +93,6 @@ const events = useEventStore()
 
 const role = ref(localStorage.getItem("userRole"))
 const token = ref(localStorage.getItem("token"))
-const userId = ref(localStorage.getItem("userId"))
-
 
 
 function toggleEdit(event, id, d){
@@ -110,11 +114,11 @@ async function attendEvent(event){
     let totalSchedule = 0;
     let going = false;
     events.events.forEach(e => {
-        if(e.participate.includes(userId.value)){
+        if(e.participate.includes(props.id.value)){
             totalSchedule += 1;
         }
     })
-    if(totalSchedule < schedule.value && !event.participate.includes(userId.value)){
+    if(totalSchedule < schedule.value && !event.participate.includes(props.id.value)){
         going = true; // just to update the add or remove the userId in participation[]
     }
     try{
@@ -127,7 +131,7 @@ async function attendEvent(event){
 
 
 function isParticipating(event, index){
-    return event.participate.includes(userId.value);
+    return event.participate.includes(props.id.value);
 }
 
 function totalParticipate(event){
@@ -135,7 +139,7 @@ function totalParticipate(event){
 }
 
 const schedule = computed(()=>{
-    return users.currentUser?.schedule.count || 1;
+    return users.selectedUser?.schedule.count || 1;
 })
 </script>
 

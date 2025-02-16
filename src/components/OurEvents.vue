@@ -31,7 +31,7 @@
                     </select>
                     <input type="text" v-model="time" class="bg-white py-1 px-2 text-center rounded-lg">
                 </div>
-                <div class="flex flex-end gap-2 w-full">
+                <div v-if="role==='admin'" class="flex flex-end gap-2 w-full">
                     <span @click="addNewEvent" class="block font-bold cursor-pointer text-center mt-2 shadow-sm bg-gray-200 hover:bg-gray-300 p-2 rounded-lg" :class="addNew ? 'w-[50%]':'w-full'"> {{addNew?'Save':'Add new schedule'}}</span>
                     <span v-if="addNew" @click="addNew=false" class="block font-bold cursor-pointer text-center mt-2 shadow-sm bg-gray-200 hover:bg-gray-300 p-2 rounded-lg w-[50%]"> Cancel</span>
                 </div>

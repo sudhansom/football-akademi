@@ -44,7 +44,7 @@
     <div v-if="loading">
         <loading-spinner></loading-spinner>
     </div>
-    <div class="login">
+    <div class="login my-3">
         <p>Already a user?</p>
         <router-link to="/login" class="link">
             Login

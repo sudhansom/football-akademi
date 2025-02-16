@@ -58,7 +58,7 @@ async function submitForm(){
 
 <style scoped>
 .registration {
-    min-height: 85dvh;
+    min-height: 76dvh;
     max-width: 350px;
     margin: 48px auto;
 }

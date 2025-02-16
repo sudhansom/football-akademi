@@ -18,11 +18,11 @@ import { ref } from 'vue'
 import ImageIndication from './ImageIndication.vue';
 let count = ref(0);
 const images = ref([
-    "/src/assets/images/ayoub.png",
-    "/src/assets/images/f1.png",
-    "/src/assets/images/f2.png",
-    "/src/assets/images/f3.png",
-    "/src/assets/images/f4.png",
+    "/images/ayoub.png",
+    "/images/f1.png",
+    "/images/f2.png",
+    "/images/f3.png",
+    "/images/f4.png",
 
 ])
 function prevSlide(){

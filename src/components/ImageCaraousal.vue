@@ -18,10 +18,12 @@ import { ref } from 'vue'
 import ImageIndication from './ImageIndication.vue';
 let count = ref(0);
 const images = ref([
-    "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-    "https://media.istockphoto.com/id/1403500817/photo/the-craggies-in-the-blue-ridge-mountains.jpg?s=612x612&w=0&k=20&c=N-pGA8OClRVDzRfj_9AqANnOaDS3devZWwrQNwZuDSk=",
-    "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?cs=srgb&dl=pexels-souvenirpixels-414612.jpg&fm=jpg",
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+    "/src/assets/images/ayoub.png",
+    "/src/assets/images/f1.png",
+    "/src/assets/images/f2.png",
+    "/src/assets/images/f3.png",
+    "/src/assets/images/f4.png",
+
 ])
 function prevSlide(){
     if(count.value > 0){

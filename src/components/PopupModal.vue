@@ -1,7 +1,7 @@
 <template>
   <div class="pop-up rounded-md">
     <div class="flex justify-between items-center gap-2">
-        <input type="text" placeholder="Search by name" class="bg-white mb-1 rounded-md px-2">
+        <input v-model="name" type="text" placeholder="Search by name" class="bg-white mb-1 rounded-md px-2">
         <span title="Close" @click="closeDialog" class="cursor-pointer rounded-full bg-gray"> <i class="fa-solid fa-xmark text-xl text-gray-400 hover:text-gray-700"></i></span>
     </div>
     <table>
@@ -22,7 +22,10 @@
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
 import eventBus from "../../eventBus.js"
+
+const name = ref('')
 
 const props = defineProps({
     participants: Array
@@ -31,6 +34,9 @@ const props = defineProps({
 function closeDialog(){
     eventBus.emit("closeDialog")
 }
+// const filteredParticipants = computed(()=>{
+//     return props.participants.filter(p => p.name.includes(name.value))
+// })
 </script>
 
 <style scoped>

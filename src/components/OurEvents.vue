@@ -11,11 +11,11 @@
                     <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6">
                         <i class="fa-solid fa-pen-to-square hover:text-green-500"></i>
                     </span>
-                    <span v-if="totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-12 cursor-pointer">
+                    <span @click="showParticipants(event.participate)" v-if="totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-12 cursor-pointer hover:text-green-500">
                         {{ totalParticipate(event) }}
                     </span>
                 </span>
-                <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-10" :class="isParticipating(event, index)?'text-green-500':'text-red-500'">
+                <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-10" :class="isParticipating(event, index)?'text-green-500 hover:text-green-700':'text-red-500 hover:text-red-700'">
                     <i class="fa-solid fa-person-running"></i>
                 </span>
                 </span>
@@ -82,6 +82,7 @@ const props = defineProps({
 const { data, error, loading, load } = useFetchData()
 
 const users = useUserStore()
+const participants = ref([]);
 
 
 let editModal = ref(false)
@@ -146,6 +147,10 @@ const schedule = computed(()=>{
         return users.selectedUser?.schedule.count || 1;
     }
 })
+
+function showParticipants(participants){
+    console.log(participants)
+}
 </script>
 
 <style scoped>

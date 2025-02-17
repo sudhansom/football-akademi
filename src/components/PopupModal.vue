@@ -1,5 +1,5 @@
 <template>
-  <div class="pop-up rounded-md">
+  <div class="pop-up rounded-md bg-stone-500">
     <div class="flex justify-between items-center gap-2">
         <input v-model="name" type="text" placeholder="Search by name" class="bg-white mb-1 rounded-md px-2">
         <span title="Close" @click="closeDialog" class="cursor-pointer rounded-full bg-gray"> <i class="fa-solid fa-xmark text-xl text-gray-400 hover:text-gray-700"></i></span>

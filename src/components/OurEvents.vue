@@ -64,7 +64,7 @@
     <div v-if="loading" class="absolute flex justify-center items-center bottom-0 top-0 right-0 left-0">
         <loading-spinner />
     </div>
-    <div v-if="showPopup" class="absolute bottom-0 top-0 right-0 left-0 flex justify-center items-center border-2 border-red-800">
+    <div v-if="showPopup" class="absolute bottom-0 top-0 right-0 left-0 flex justify-center items-center bg-gray-100 opacity-90">
         <PopupModal :participants="participants" />
     </div>
 </template>

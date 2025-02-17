@@ -72,10 +72,17 @@ import LoadingSpinner from '../components/LoadingSpinner.vue'
 import { useEventStore } from '../stores/EventStore'
 import { useFetchData } from '../composables/useFetchData'
 import { useUserStore } from "../stores/UserStore"
-const { data, error, loading, load } = useFetchData()
 import eventBus from "../../eventBus.js"
 
+const props = defineProps({
+    id: String,
+    sameUser: Boolean,
+})
+
+const { data, error, loading, load } = useFetchData()
+
 const users = useUserStore()
+
 
 let editModal = ref(false)
 let addNew = ref(false)
@@ -87,8 +94,6 @@ const events = useEventStore()
 
 const role = ref(localStorage.getItem("userRole"))
 const token = ref(localStorage.getItem("token"))
-const userId = ref(localStorage.getItem("userId"))
-
 
 
 function toggleEdit(event, id, d){
@@ -110,15 +115,15 @@ async function attendEvent(event){
     let totalSchedule = 0;
     let going = false;
     events.events.forEach(e => {
-        if(e.participate.includes(userId.value)){
+        if(e.participate.includes(props.id)){
             totalSchedule += 1;
         }
     })
-    if(totalSchedule < schedule.value && !event.participate.includes(userId.value)){
+    if(totalSchedule < schedule.value && !event.participate.includes(props.id)){
         going = true; // just to update the add or remove the userId in participation[]
     }
     try{
-        await load('/schedules/'+event.id , "PATCH", {userId:userId.value, going});
+        await load('/schedules/'+event.id , "PATCH", {userId:props.id, going});
     }catch(err){
         console.log(err, error);
     }
@@ -127,7 +132,7 @@ async function attendEvent(event){
 
 
 function isParticipating(event, index){
-    return event.participate.includes(userId.value);
+    return event.participate.includes(props.id);
 }
 
 function totalParticipate(event){
@@ -135,7 +140,11 @@ function totalParticipate(event){
 }
 
 const schedule = computed(()=>{
-    return users.currentUser?.schedule.count || 1;
+    if(props.sameUser){
+        return users.currentUser?.schedule.count || 1;
+    }else{
+        return users.selectedUser?.schedule.count || 1;
+    }
 })
 </script>
 

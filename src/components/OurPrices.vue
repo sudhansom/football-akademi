@@ -73,14 +73,16 @@ import eventBus from "../../eventBus.js"
 import LoadingSpinner from "./LoadingSpinner.vue"
 import { usePriceStore } from "../stores/PriceStore"
 import { useUserStore } from "../stores/UserStore"
-
 import { useFetchData } from "../composables/useFetchData"
+
+const props = defineProps({
+    id: String,
+    sameUser: Boolean,
+})
 
 const { data, error, loading, load } = useFetchData()
 
 const role = ref(localStorage.getItem("userRole"))
-const id = ref(localStorage.getItem("userId"))
-
 
 const prices = usePriceStore()
 const users = useUserStore()
@@ -103,24 +105,33 @@ function savePrice(){
     editId.value = null
 }
 async function updateSchedule(times){
-    if(times === schedule.value){
+    if(times === schedule.value && isApproved()){
         console.log('already same times', times, users.currentUser?.schedule)
         return
     }
-    await load('/users/schedule/'+ id.value, "PATCH", {count: times, going: role.value==='admin'?'approved':'pending'})
-    await load('schedules/reset/'+id.value, "PATCH", {});
-    await load('/users/'+id.value);
-    users.fillCurrentUser(data.value);
+    await load('/users/schedule/'+ props.id, "PATCH", {count: times, going: role.value==='admin'?'approved':'pending'})
+    await load('schedules/reset/'+props.id, "PATCH", {});
+    await load('/users/'+ props.id);
+    users.fillCurrentUser(data);
     eventBus.emit('reloadEvents')
+    prices.fill()
 }
 onMounted(()=>{
    prices.fill() 
 })
 const schedule = computed(()=>{
-    return users.currentUser?.schedule.count || 1;
+    if(props.sameUser){
+        return users.currentUser?.schedule?.count;
+    }else{
+        return users.selectedUser?.schedule?.count;
+    }
 })
 function isApproved(){
-    return users.currentUser?.schedule.going === 'approved'
+    if(props.sameUser){
+        return users.currentUser?.schedule?.going === 'approved'
+    }else{
+        return users.selectedUser?.schedule?.going === 'approved'
+    }
 }
 </script>
 

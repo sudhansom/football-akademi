@@ -11,10 +11,10 @@
                     <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6">
                         <i class="fa-solid fa-pen-to-square hover:text-green-500"></i>
                     </span>
-                    <span @click="showParticipants(event.participate)" v-if="!sameUser && totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-12 cursor-pointer hover:text-green-500">
+                </span>
+                 <span @click="showParticipants(event.participate)" v-if="role && !sameUser && totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-12 cursor-pointer hover:text-green-500">
                         {{ totalParticipate(event) }}
                     </span>
-                </span>
                 <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-10" :class="isParticipating(event, index)?'text-green-500 hover:text-green-700':'text-red-500 hover:text-red-700'">
                     <i class="fa-solid fa-person-running"></i>
                 </span>
@@ -64,6 +64,9 @@
     <div v-if="loading" class="absolute flex justify-center items-center bottom-0 top-0 right-0 left-0">
         <loading-spinner />
     </div>
+    <div v-if="showPopup" class="absolute bottom-0 top-0 right-0 left-0 flex justify-center items-center border-2 border-red-800">
+        <PopupModal :participants="participants" />
+    </div>
 </template>
 
 <script setup>
@@ -72,6 +75,7 @@ import LoadingSpinner from '../components/LoadingSpinner.vue'
 import { useEventStore } from '../stores/EventStore'
 import { useFetchData } from '../composables/useFetchData'
 import { useUserStore } from "../stores/UserStore"
+import PopupModal from "./PopupModal.vue"
 import eventBus from "../../eventBus.js"
 
 const props = defineProps({
@@ -82,7 +86,8 @@ const props = defineProps({
 const { data, error, loading, load } = useFetchData()
 
 const users = useUserStore()
-const participants = ref([]);
+const participants = ref([])
+const showPopup = ref(false)
 
 
 let editModal = ref(false)
@@ -109,6 +114,9 @@ function addNewEvent(){
 onMounted(()=>{
    events.fill();
    eventBus.on('reloadEvents', events.fill)
+   eventBus.on('closeDialog', ()=>{
+    showPopup.value = false;
+   })
 })
 
 async function attendEvent(event){
@@ -148,8 +156,9 @@ const schedule = computed(()=>{
     }
 })
 
-function showParticipants(participants){
-    console.log(participants)
+function showParticipants(p){
+    showPopup.value = true;
+    participants.value = users.users.filter(u => p.includes(u.id) )
 }
 </script>
 

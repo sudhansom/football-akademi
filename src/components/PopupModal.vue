@@ -12,8 +12,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="participant in participants" :key=participant.id>
-                <td>1</td>
+            <tr v-for="(participant,index) in filteredParticipants" :key=participant.id>
+                <td>{{ index + 1 }}</td>
                 <td>{{participant.name}}</td>
             </tr>
         </tbody>
@@ -34,9 +34,9 @@ const props = defineProps({
 function closeDialog(){
     eventBus.emit("closeDialog")
 }
-// const filteredParticipants = computed(()=>{
-//     return props.participants.filter(p => p.name.includes(name.value))
-// })
+const filteredParticipants = computed(()=>{
+    return props.participants.filter(p => p.name.toLowerCase().includes(name.value.toLocaleLowerCase()))
+})
 </script>
 
 <style scoped>

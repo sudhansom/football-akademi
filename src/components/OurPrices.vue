@@ -105,7 +105,7 @@ function savePrice(){
     editId.value = null
 }
 async function updateSchedule(times){
-    if(times === schedule.value){
+    if(times === schedule.value && isApproved()){
         console.log('already same times', times, users.currentUser?.schedule)
         return
     }
@@ -114,22 +114,23 @@ async function updateSchedule(times){
     await load('/users/'+ props.id);
     users.fillCurrentUser(data);
     eventBus.emit('reloadEvents')
+    prices.fill()
 }
 onMounted(()=>{
    prices.fill() 
 })
 const schedule = computed(()=>{
     if(props.sameUser){
-        return users.currentUser?.schedule.count || 1;
+        return users.currentUser?.schedule?.count;
     }else{
-        return users.selectedUser?.schedule.count || 1;
+        return users.selectedUser?.schedule?.count;
     }
 })
 function isApproved(){
     if(props.sameUser){
-        return users.currentUser?.schedule.going === 'approved'
+        return users.currentUser?.schedule?.going === 'approved'
     }else{
-        return users.selectedUser?.schedule.going === 'approved'
+        return users.selectedUser?.schedule?.going === 'approved'
     }
 }
 </script>

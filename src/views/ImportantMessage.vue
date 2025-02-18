@@ -186,7 +186,9 @@ const warning = computed(()=>{
 })
 
 function getUser(id){
-  return users.users.find(u => u.id === id)?.name;
+  users.fill()
+  let user = users.users.find(u => u.id === id)
+  return user.name;
 }
 </script>
 

@@ -72,7 +72,7 @@
         <td :class="message.active?'font-bold text-green-500':''">{{ getUser(message.user) }}</td>
         <td>
           <span class="flex justify-center items-center gap-2">
-              <span title="click to delete" @click="deleteMessage(message.id)" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block flex justify-center items-center"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
+              <span title="click to delete" @click="deleteFeedback(message.id)" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block flex justify-center items-center"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
               <span title="click to edit" @click="editMessage(message.message, message.active, message.id)" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block flex justify-center items-center"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
           </span>
         </td>
@@ -125,12 +125,16 @@ function editMessage(message, active, id){
     message,
     active,
     id
-  }
-  
+  } 
 }
+
 async function deleteMessage(id){
     await load('/messages/'+id, 'DELETE')
     messages.fill();
+}
+async function deleteFeedback(id){
+    await load('/feedbacks/'+id, 'DELETE')
+    messages.fillFeedbacks();
 }
 async function addMessage(){
     await load('/messages/', "POST", {

@@ -110,7 +110,7 @@ async function updateSchedule(times){
         return
     }
     await load('/users/schedule/'+ props.id, "PATCH", {count: times, going: role.value==='admin'?'approved':'pending'})
-    await load('schedules/reset/'+props.id, "PATCH", {});
+    await load('/schedules/reset/'+props.id, "PATCH", {});
     await load('/users/'+ props.id);
     users.fillCurrentUser(data);
     eventBus.emit('reloadEvents')

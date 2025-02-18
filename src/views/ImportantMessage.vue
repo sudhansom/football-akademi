@@ -73,20 +73,22 @@
         <td>
           <span class="flex justify-center items-center gap-2">
               <span title="click to delete" @click="deleteFeedback(message.id)" class="text-gray-500 hover:text-red-500 cursor-pointer inline-block flex justify-center items-center"><i class="fa-solid fa-trash hover:text-red-500"></i></span>
-              <span title="click to edit" @click="editMessage(message.message, message.active, message.id)" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block flex justify-center items-center"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
+              <span title="click to edit" @click="updateFeedback(message.message, message.active, message.id)" class="text-gray-500 hover:text-green-500 cursor-pointer inline-block flex justify-center items-center"><i class="fa-solid fa-pen-to-square hover:text-green-500"></i></span>
           </span>
         </td>
+        <div v-if="editFeedback" class="absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-95">
+    <div class="flex justify-center items-center gap-2 p-2">
+      <label>
+        Priority: 
+      <input v-model="priority" type="number" class="bg-white rounded-md p-1">
+      </label>
+      <button @click="updateFeedback(message.message, message.active, message.id)" class="p-1">Save</button>
+      <button @click="editFeedback=false" class="p-1 ml-4">Cancel</button>
+    </div>
+  </div>
       </tr>
     </tbody>
   </table>
-  <div v-if="edit" class="absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-95">
-    <div class="flex justify-center items-center gap-2 p-2">
-      <input v-model="currentMessage.message" type="text" class="bg-white rounded-md p-1 border-blue-500">
-      <input v-model="currentMessage.active" type="checkbox" class="bg-white rounded-md p-1">Active
-    </div>
-    <button @click="updateMessage" class="p-1">Save</button>
-    <button @click="edit=false" class="p-1 ml-4">Cancel</button>
-  </div>
  
   <div v-if="loading" class="flex justify-center items-center absolute left-0 right-0 top-0 bottom-0 bg-gray-200 opacity-70">
     <loading-spinner />
@@ -111,9 +113,12 @@ const { data, error, loading, load} = useFetchData();
 const messages = useMessageStore()
 const users = useUserStore()
 const edit = ref(false);
+const editFeedback = ref(false);
 const currentMessage = ref({message:"",active:false, id:undefined});
+const currentFeedback = ref({priority: 2});
 const addNew = ref(false);
 const closeWarning = ref(false);
+const priority = ref(0);
 
 onMounted(()=>{
   messages.fill();
@@ -126,6 +131,18 @@ function editMessage(message, active, id){
     active,
     id
   } 
+}
+
+async function updateFeedback(message, active, id){
+  if(editFeedback.value){
+    currentFeedback.value = {
+      priority: priority.value,
+    } 
+    await load('/feedbacks/'+id, 'PATCH', currentFeedback.value)
+    editFeedback.value = false;
+  }else{
+    editFeedback.value = true;
+  }
 }
 
 async function deleteMessage(id){

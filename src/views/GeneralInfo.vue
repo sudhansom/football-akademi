@@ -3,8 +3,8 @@
   <our-events :id="userId" :sameUser="route.params.id ? true: false " />
   <hr class="m-3 text-gray-200">
   <our-prices :id="userId" :sameUser="route.params.id ? true: false "></our-prices>
-  <hr v-if="userId" class="m-3 text-gray-200">
-  <feed-back v-if="userId" />
+  <hr v-if="userId && !info" class="m-3 text-gray-200">
+  <feed-back v-if="userId && !info" />
 </template>
 
 <script setup>

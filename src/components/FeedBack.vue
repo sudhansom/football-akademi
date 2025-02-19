@@ -33,10 +33,16 @@ async function sendFeedback(){
 }
 onMounted(()=>{
     if (textareaRef.value) {
-        textareaRef.value.addEventListener("input", function() {
-            if (this.value.includes("fuck")) {
+        textareaRef.value.addEventListener("keyup", function(event) {
+            if (this.value.toLowerCase().includes("fuck")) {
+                if(event.key === "Backspace"){
+                    this.value = ""
+                    this.style.background = "white";
+                    return 
+                }
                 this.style.background = "red";
                 isDisabled.value = true;
+                this.value += "YOU CANNOT SEND THIS"
             } else {
                 this.style.background = "";
                 isDisabled.value = false;

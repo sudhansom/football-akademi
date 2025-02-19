@@ -1,6 +1,6 @@
 <template>
  <div class="text-center">
-     <h3 class="font-bold text-3xl mb-4">Important messages</h3>
+     <h3 class="font-bold text-xl mb-4">Important messages</h3>
   <div class="relative">
     <table>
     <thead>
@@ -53,8 +53,8 @@
   </div>
  </div>
  <hr class="my-6">
- <div class="feedback text-center">
-    <h3 class="font-bold text-3xl mb-4">Feedbacks from parent</h3>
+ <div class="feedback text-center mb-3">
+    <h3 class="font-bold text-xl mb-4">Feedbacks from parent</h3>
     <div class="relative">
     <table>
     <thead>

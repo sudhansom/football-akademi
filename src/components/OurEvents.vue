@@ -65,7 +65,7 @@
         <loading-spinner />
     </div>
     <div v-if="showPopup" class="absolute bottom-0 top-0 right-0 left-0 flex justify-center items-center bg-gray-100 opacity-90">
-        <PopupModal :participants="participants" />
+        <PopupModal :participants="participants" @closeDialog="showPopup = false" />
     </div>
 </template>
 
@@ -114,9 +114,6 @@ function addNewEvent(){
 onMounted(()=>{
    events.fill();
    eventBus.on('reloadEvents', events.fill)
-   eventBus.on('closeDialog', ()=>{
-    showPopup.value = false;
-   })
 })
 
 async function attendEvent(event){

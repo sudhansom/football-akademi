@@ -23,16 +23,17 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import eventBus from "../../eventBus.js"
 
 const name = ref('')
+
+const emit = defineEmits(['closeDialog'])
 
 const props = defineProps({
     participants: Array
 })
 
 function closeDialog(){
-    eventBus.emit("closeDialog")
+    emit('closeDialog')
 }
 const filteredParticipants = computed(()=>{
     return props.participants.filter(p => p.name.toLowerCase().includes(name.value.toLocaleLowerCase()))

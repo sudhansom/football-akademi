@@ -45,12 +45,13 @@ async function submitForm(){
         console.log(data.value.user)
         users.fillCurrentUser(data.value.user);
         users.setToken(data.value.token);
+        localStorage.setItem('user', JSON.stringify(data.value.user));
         localStorage.setItem("userId", data.value.user.id);
         localStorage.setItem("userRole", data.value.user.role);
         localStorage.setItem('token', data.value.token)
         localStorage.setItem('schedule', data.value.user.schedule)
         // router.push(`/info/detail/${data.value.result.id}`);
-        router.push(`/info/`);
+        router.push(`/`);
     }
 }
 

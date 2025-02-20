@@ -6,7 +6,7 @@ const { data, error, loading, load } = useFetchData()
 export const useUserStore = defineStore('users', {
   state: () => ({
     users: [], // Initial state
-    currentUser: null,
+    currentUser: JSON.parse(localStorage.getItem('user')) || null,
     selectedUser: null,
     token: localStorage.getItem('token') || '',
   }),

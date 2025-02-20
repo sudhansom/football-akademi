@@ -32,6 +32,8 @@ function logoutUser(){
   localStorage.removeItem("userId")
   localStorage.removeItem("token")
   localStorage.removeItem("schedule")
+  localStorage.removeItem("user")
+  users.fillCurrentUser(null)
   users.setToken();
   router.push("/");
 }

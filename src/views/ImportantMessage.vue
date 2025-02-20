@@ -80,7 +80,7 @@
     <div class="flex justify-center items-center gap-2 p-2">
       <label>
         Priority: 
-      <input v-model="priority" type="number" class="bg-white rounded-md p-1">
+      <input v-model="priority" type="number" class="bg-white rounded-md p-1 w-[50px]">
       </label>
       <button @click="updateFeedback(message.message, message.active, message.id)" class="p-1">Save</button>
       <button @click="editFeedback=false" class="p-1 ml-4">Cancel</button>

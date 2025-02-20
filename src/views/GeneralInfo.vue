@@ -36,9 +36,9 @@ onMounted(()=>{
 async function fillData(){
   await load('users/'+ userId.value)
   if(route.params.id){
-    users.fillCurrentUser(data.value)
-  }else{
     users.fillSelectedUser(data.value)
+  }else{
+    users.fillCurrentUser(data.value)
   }
 }
 

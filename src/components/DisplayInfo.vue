@@ -24,15 +24,15 @@ defineProps({
   display: inline-block;
   margin: 0;
   white-space: nowrap; /* Prevents text from wrapping to the next line */
-  animation: move-right 25s linear infinite; /* 10 seconds, linear speed, infinite loop */
+  animation: move-right 10s linear infinite; /* 10 seconds, linear speed, infinite loop */
 }
 
 @keyframes move-right {
   0% {
-    transform: translateX(-100%); /* Start at the original position */
+    transform: translateX(-50%); /* -100%:  Starts at the original position */
   }
   100% {
-    transform: translateX(100%); /* Move completely to the right */
+    transform: translateX(120%); /* 100%:  Moves completely to the right */
   }
 }
 </style>

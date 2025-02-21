@@ -3,13 +3,13 @@
         <h3 class="font-bold text-xl text-center mb-1">Our Programs</h3>
         <div>
             <div v-if="events.events?.length" class="flex flex-col">
-                <span class="hover:bg-gray-300 p-1 flex justify-center" v-for="(event,index) in events.events" :key="event">{{event.day}} - {{event.slot}}
+                <span class="hover:bg-gray-300 p-1 flex justify-between" v-for="(event,index) in events.events" :key="event">{{event.day}} - {{event.slot}}
                 <span v-if="role==='admin'">
-                    <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-10">
-                        <i class="fa-solid fa-trash hover:text-red-500"></i>
+                    <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-6">
+                        <i class="fa-solid fa-trash text-red-500"></i>
                     </span> 
-                    <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-6">
-                        <i class="fa-solid fa-pen-to-square hover:text-green-500"></i>
+                    <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-4">
+                        <i class="fa-solid fa-pen-to-square text-green-500"></i>
                     </span>
                 </span>
                  <span @click="showParticipants(event.participate)" v-if="role && !sameUser && totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-12 cursor-pointer hover:text-green-500">

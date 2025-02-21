@@ -8,7 +8,7 @@
                         <tr>
                             <th>Day - Time</th>
                             <th v-if="role==='admin'">Action</th>
-                            <th>Total</th>
+                            <th>-</th>
                             <th>Coming</th>
                         </tr>
                     </thead>

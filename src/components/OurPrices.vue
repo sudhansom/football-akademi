@@ -74,6 +74,9 @@ import LoadingSpinner from "./LoadingSpinner.vue"
 import { usePriceStore } from "../stores/PriceStore"
 import { useUserStore } from "../stores/UserStore"
 import { useFetchData } from "../composables/useFetchData"
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const props = defineProps({
     id: String,
@@ -112,7 +115,11 @@ async function updateSchedule(times){
     await load('/users/schedule/'+ props.id, "PATCH", {count: times, going: role.value==='admin'?'approved':'pending'})
     await load('/schedules/reset/'+props.id, "PATCH", {});
     await load('/users/'+ props.id);
-    users.fillCurrentUser(data);
+    if(route.params.id){
+        users.fillSelectedUser(data.value);
+    }else {
+        users.fillCurrentUser(data.value);
+    }
     eventBus.emit('reloadEvents')
     prices.fill()
 }
@@ -120,17 +127,16 @@ onMounted(()=>{
    prices.fill() 
 })
 const schedule = computed(()=>{
-    if(props.sameUser){
-        return users.currentUser?.schedule?.count;
-    }else{
+    if(route.params.id){
         return users.selectedUser?.schedule?.count;
     }
+    return users.currentUser?.schedule?.count;
 })
 function isApproved(){
-    if(props.sameUser){
-        return users.currentUser?.schedule?.going === 'approved'
-    }else{
+    if(route.params.id){
         return users.selectedUser?.schedule?.going === 'approved'
+    }else{
+        return users.currentUser?.schedule?.going === 'approved'
     }
 }
 </script>

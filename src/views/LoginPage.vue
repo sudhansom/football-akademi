@@ -49,7 +49,7 @@ async function submitForm(){
         localStorage.setItem("userId", data.value.user.id);
         localStorage.setItem("userRole", data.value.user.role);
         localStorage.setItem('token', data.value.token)
-        localStorage.setItem('schedule', data.value.user.schedule)
+        localStorage.setItem('schedule', JSON.stringify(data.value.user.schedule))
         // router.push(`/info/detail/${data.value.result.id}`);
         router.push(`/`);
     }

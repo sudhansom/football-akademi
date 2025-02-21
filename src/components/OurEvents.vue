@@ -78,6 +78,10 @@ import { useUserStore } from "../stores/UserStore"
 import PopupModal from "./PopupModal.vue"
 import eventBus from "../../eventBus.js"
 
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
 const props = defineProps({
     id: String,
     sameUser: Boolean,
@@ -146,10 +150,10 @@ function totalParticipate(event){
 }
 
 const schedule = computed(()=>{
-    if(props.sameUser){
-        return users.currentUser?.schedule.count || 1;
+    if(route.params.id){
+        return users.selectedUser?.schedule.count;
     }else{
-        return users.selectedUser?.schedule.count || 1;
+        return users.currentUser?.schedule.count;
     }
 })
 

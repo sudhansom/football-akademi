@@ -3,22 +3,42 @@
         <h3 class="font-bold text-xl text-center mb-1">Our Programs</h3>
         <div>
             <div v-if="events.events?.length" class="flex flex-col">
-                <span class="hover:bg-gray-300 p-1 flex justify-between" v-for="(event,index) in events.events" :key="event">{{event.day}} - {{event.slot}}
-                <span v-if="role==='admin'">
-                    <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-6">
-                        <i class="fa-solid fa-trash text-red-500"></i>
-                    </span> 
-                    <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-4">
-                        <i class="fa-solid fa-pen-to-square text-green-500"></i>
-                    </span>
-                </span>
-                 <span @click="showParticipants(event.participate)" v-if="role && !sameUser && totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-12 cursor-pointer hover:text-green-500">
-                        {{ totalParticipate(event) }}
-                    </span>
-                <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-2" :class="isParticipating(event, index)?'text-green-500 hover:text-green-700':'text-red-500 hover:text-red-700'">
-                    <i class="fa-solid fa-person-running"></i>
-                </span>
-                </span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Day - Time</th>
+                            <th v-if="role==='admin'">Action</th>
+                            <th>Total</th>
+                            <th>Coming</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-300 p-1" v-for="(event,index) in events.events" :key="event">
+                            <td><span>{{event.day}} - {{event.slot}}</span></td>
+                            <td v-if="role==='admin'">
+                                
+                                <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-6">
+                                <i class="fa-solid fa-trash text-red-200 hover:text-red-500"></i>
+                                
+                                <span @click="toggleEdit($event, id, event.day)" class="text-gray-100 hover:text-green-500 cursor-pointer inline-block ml-4">
+                                <i class="fa-solid fa-pen-to-square text-green-200 hover:text-green-500"></i>
+                                </span>
+                                </span>
+                            </td>
+                            <td>
+                                <span @click="showParticipants(event.participate)" v-if="role && !sameUser && totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-12 cursor-pointer hover:text-green-500">
+                                    {{ totalParticipate(event) }}
+                                </span>
+                            </td>
+                            <td>
+                                <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-2" :class="isParticipating(event, index)?'text-green-500 hover:text-green-700':'text-red-500 hover:text-red-700'">
+                                    <i class="fa-solid fa-person-running"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               
                 <div v-if="addNew"  class="flex justify-center border-1 border-gray-300 rounded-lg p-2 gap-6">
                     <select v-model="day"  class="border-1 rounded-lg border-gray-300">
                         <option value="Sunday">Sunday</option>

@@ -50,6 +50,7 @@ async function submitForm(){
         localStorage.setItem("userRole", data.value.user.role);
         localStorage.setItem('token', data.value.token)
         localStorage.setItem('schedule', JSON.stringify(data.value.user.schedule))
+        await users.fill();
         // router.push(`/info/detail/${data.value.result.id}`);
         router.push(`/`);
     }

@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useUserStore } from "../stores/UserStore"
 const token = ref(localStorage.getItem("token"))
 const role = ref(localStorage.getItem("userRole"));
@@ -59,10 +59,6 @@ const users = useUserStore();
 
 //  http://localhost:5000/api/users/
 // https://football-backend-dbpassword.up.railway.app/api/users
-
-onMounted(()=>{
-    users.fill();
-})
 
 function gotoLink (id){
     if(role.value==='admin' || userId.value===id){

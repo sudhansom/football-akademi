@@ -15,7 +15,7 @@
                  <span @click="showParticipants(event.participate)" v-if="role && !sameUser && totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-12 cursor-pointer hover:text-green-500">
                         {{ totalParticipate(event) }}
                     </span>
-                <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-10" :class="isParticipating(event, index)?'text-green-500 hover:text-green-700':'text-red-500 hover:text-red-700'">
+                <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-2" :class="isParticipating(event, index)?'text-green-500 hover:text-green-700':'text-red-500 hover:text-red-700'">
                     <i class="fa-solid fa-person-running"></i>
                 </span>
                 </span>

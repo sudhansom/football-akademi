@@ -8,7 +8,6 @@
                         <tr>
                             <th>Day - Time</th>
                             <th v-if="role==='admin'">Action</th>
-                            <th>-</th>
                             <th>Coming</th>
                         </tr>
                     </thead>
@@ -25,14 +24,12 @@
                                 </span>
                                 </span>
                             </td>
-                            <td>
-                                <span @click="showParticipants(event.participate)" v-if="role && !sameUser && totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-12 cursor-pointer hover:text-green-500">
-                                    {{ totalParticipate(event) }}
-                                </span>
-                            </td>
-                            <td>
-                                <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block ml-2" :class="isParticipating(event, index)?'text-green-500 hover:text-green-700':'text-red-500 hover:text-red-700'">
+                            <td class="px-2">
+                                <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block mr-2" :class="isParticipating(event, index)?'text-green-500 hover:text-green-700':'text-red-500 hover:text-red-700'">
                                     <i class="fa-solid fa-person-running"></i>
+                                </span> |
+                                <span @click="showParticipants(event.participate)" v-if="role && !sameUser && totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-3 cursor-pointer hover:text-green-500">
+                                    {{ totalParticipate(event) }}
                                 </span>
                             </td>
                         </tr>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" class="person">
+  <div v-if="user" class="">
     <personal-detail :user="user"></personal-detail>
     <personal-measurement :user="user"></personal-measurement>
     <payments-detail :user="user"></payments-detail>
@@ -60,12 +60,12 @@ img {
     border-radius: 6px;
 }
 
-.person {
+/* .person {
     border: 1px solid gray;
     padding: 0 12px;
     border-radius: 12px;
     margin: 24px;
-}
+} */
 ol {
     padding:0;
     margin: 0;

@@ -6,7 +6,7 @@
             <tr>
                 <th>Times / week</th>
                 <th>Price</th>
-                <th v-if="role==='admin'">
+                <th v-if="role==='admin' && !sameUser">
                     <span class="m-1">Actions</span>
                 </th>
                 <th v-if="role">
@@ -24,7 +24,7 @@
                     <input v-if="editId==p.id" type="text" :placeholder="p.price" class="bg-white text-center">
                     <span v-else>{{ p.price }} dkk</span>
                 </td>
-                <td v-if="role==='admin'">
+                <td v-if="role==='admin' && !sameUser">
                     <div v-if="editId!=p.id">
                         <span title="Delete this price tag" class="cursor-pointer mr-2"><i class="fa-solid fa-trash text-red-300 hover:text-red-500"></i> </span><span title="Edit this price" @click="editPrice(p.id)" class="cursor-pointer"> <i class="fa-solid fa-pen-to-square text-green-300 hover:text-green-500"></i></span>
                     </div>

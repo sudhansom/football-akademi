@@ -7,14 +7,14 @@
                     <thead>
                         <tr>
                             <th>Day - Time</th>
-                            <th v-if="role==='admin'">Action</th>
-                            <th>Coming</th>
+                            <th v-if="role==='admin' && !sameUser">Action</th>
+                            <th v-if="role">Coming</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="hover:bg-gray-300 p-1" v-for="(event,index) in events.events" :key="event">
                             <td><span>{{event.day}} - {{event.slot}}</span></td>
-                            <td v-if="role==='admin'">
+                            <td v-if="role==='admin' && !sameUser">
                                 
                                 <span class="text-gray-100 hover:text-red-500 cursor-pointer inline-block ml-6">
                                 <i class="fa-solid fa-trash text-red-200 hover:text-red-500"></i>
@@ -24,10 +24,10 @@
                                 </span>
                                 </span>
                             </td>
-                            <td class="px-2">
+                            <td v-if="role" class="px-4">
                                 <span :title="isParticipating(event, index)?'partipating':'not participating'" @click="attendEvent(event)" v-if="token" class="cursor-pointer inline-block mr-2" :class="isParticipating(event, index)?'text-green-500 hover:text-green-700':'text-red-500 hover:text-red-700'">
                                     <i class="fa-solid fa-person-running"></i>
-                                </span> |
+                                </span>
                                 <span @click="showParticipants(event.participate)" v-if="role && !sameUser && totalParticipate(event)" :title="totalParticipate(event) + ' player participating'" class="text-green-700 ml-3 cursor-pointer hover:text-green-500">
                                     {{ totalParticipate(event) }}
                                 </span>

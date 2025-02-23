@@ -43,7 +43,6 @@ async function submitForm(){
             password:password.value
         })
     if(data.value) {
-        console.log(data.value.user)
         users.fillCurrentUser(data.value.user);
         users.setToken(data.value.token);
         localStorage.setItem('user', JSON.stringify(data.value.user));

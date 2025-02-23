@@ -62,6 +62,7 @@ button:focus-visible {
   cursor: pointer;
 }
 .login {
+  padding-block: 2px ;
   background: green;
   color: white;
 }

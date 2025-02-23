@@ -1,16 +1,16 @@
 <template>
   <nav class="flex justify-between items-center border-1 py-1 border-gray-300">
-   <section class="flex space-x-4 items-center">
-        <router-link to="/"><menu-bar /></router-link>
+   <section class="flex space-x-4 items-center pl-2">
+        <!-- <router-link to="/"><menu-bar /></router-link> -->
         <router-link to="/" class="cursor-pointer">
             <img class="block" src="../assets/logo.png" width="48px" alt="logo">
         </router-link>
+        <router-link v-if="users.token" :to="`/info/detail/${users.currentUser.id}`" class="each-tab login">{{ users.currentUser.name }}</router-link>
    </section>
    <section class="ayoub">
     <h2 class="hidden md:block text-xl font-bold">Ayoub Sørensen, Fodbold Akademi</h2>
    </section>
    <section class="flex space-x-4 items-center">
-    <router-link v-if="users.token" :to="`/info/detail/${users.currentUser.id}`" class="each-tab login">{{ users.currentUser.name }}</router-link>
     <router-link to="/info" class="each-tab">Information</router-link>
     <span v-if="users.token" @click="logoutUser" class="each-tab">LogOut</span>
     <router-link v-else  to="/login" class="each-tab">SignIn</router-link>

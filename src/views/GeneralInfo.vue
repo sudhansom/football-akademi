@@ -31,7 +31,9 @@ const { data, error, loading, load } = useFetchData()
 const userId = ref(route.params.id || localStorage.getItem("userId"))
 
 onMounted(()=>{
-  fillData();
+  if(userId.value){
+    fillData();
+  }
 })
 async function fillData(){
   await load('users/'+ userId.value)

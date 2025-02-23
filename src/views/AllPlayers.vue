@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useUserStore } from "../stores/UserStore"
 const token = ref(localStorage.getItem("token"))
 const role = ref(localStorage.getItem("userRole"));
@@ -92,11 +92,18 @@ const filteredUsers = computed(()=>{
 })
 
 const checkStatus = (payments) => {
+    const month = new Date().toDateString().slice(4,7).toLocaleLowerCase();
+    if(!payments[month]){
+        return 'text-red-500'
+    }
     let pending = Object.values(payments).some(value => value === 'pending');
     let notPaid = Object.values(payments).some(value => value === 'not-paid');
 
-    return pending? 'text-orange-500': notPaid?'text-red-500':''
+    return pending? 'text-orange-300': notPaid?'text-red-500':''
 }
+onMounted(()=>{
+    users.fill();
+})
 </script>
 
 <style scoped>

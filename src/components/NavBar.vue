@@ -10,6 +10,7 @@
     <h2 class="hidden md:block text-xl font-bold">Ayoub Sørensen, Fodbold Akademi</h2>
    </section>
    <section class="flex space-x-4 items-center">
+    <router-link v-if="users.token" :to="`/info/detail/${users.currentUser.id}`" class="each-tab login">{{ users.currentUser.name }}</router-link>
     <router-link to="/info" class="each-tab">Information</router-link>
     <span v-if="users.token" @click="logoutUser" class="each-tab">LogOut</span>
     <router-link v-else  to="/login" class="each-tab">SignIn</router-link>
@@ -19,6 +20,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import MenuBar from "./MenuBar.vue"
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/UserStore'

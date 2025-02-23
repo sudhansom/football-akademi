@@ -61,9 +61,17 @@ button:focus-visible {
   height: 100%;
   cursor: pointer;
 }
+.login {
+  background: green;
+  color: white;
+}
 .each-tab:hover {
   border-color: #646cff;
   background: rgb(243, 243, 243);
+}
+.login:hover {
+  color: green;
+  border-color: green;
 }
 table {
   width: 100%;

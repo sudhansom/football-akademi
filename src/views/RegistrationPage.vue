@@ -44,7 +44,7 @@
     <div v-if="loading">
         <loading-spinner></loading-spinner>
     </div>
-    <div class="login my-3">
+    <div class="my-3 flex gap-4">
         <p>Already a user?</p>
         <router-link to="/login" class="link">
             Login
@@ -130,7 +130,7 @@ function handleFileChange(event) {
 .registration {
     min-height: 85dvh;
     max-width: 500px;
-    margin: auto;
+    margin: 24px auto;
 }
 form {
     display: flex;

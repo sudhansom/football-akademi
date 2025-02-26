@@ -31,8 +31,8 @@ const users = useUserStore();
 
 const { data, error, loading, load } = useFetchData()
 
-const email = ref("ayoub@gmail.com")
-const password = ref("password")
+const email = ref("")
+const password = ref("")
 
 const router = useRouter();
 

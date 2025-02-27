@@ -1,6 +1,6 @@
 <template>
-  <div class="footer">
-     <span>contact: 0045-123456</span>
+  <div class="flex flex-col justify-center items-center  md:flex-row md:justify-between p-2 bg-gray-300 ">
+     <span>Contact: 0045-123456</span>
      <span>@copyright 2025 | All Rights Reserved</span>
   </div>
 </template>
@@ -12,11 +12,5 @@ export default {
 </script>
 
 <style scoped>
-.footer {
-    padding: 6px;
-    background: gray;
-    display: flex;
-    justify-content: space-between;
-    color: #fff;
-}
+
 </style>
